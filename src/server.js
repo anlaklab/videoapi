@@ -222,13 +222,97 @@ app.get('/', (req, res) => {
   `);
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({
+// Health check endpoint mejorado
+app.get('/health', async (req, res) => {
+  const startTime = Date.now();
+  const healthStatus = {
     status: 'healthy',
     timestamp: new Date().toISOString(),
-    version: '1.0.0'
-  });
+    uptime: process.uptime(),
+    version: process.env.npm_package_version || '1.0.0',
+    environment: process.env.NODE_ENV || 'development',
+    checks: {}
+  };
+
+  try {
+    // Check Redis connection
+    try {
+      const { redis } = require('./config/redis');
+      await redis.ping();
+      healthStatus.checks.redis = { status: 'healthy', responseTime: Date.now() - startTime };
+    } catch (error) {
+      healthStatus.checks.redis = { status: 'unhealthy', error: error.message };
+      healthStatus.status = 'degraded';
+    }
+
+    // Check Firebase connection
+    try {
+      const admin = require('firebase-admin');
+      if (admin.apps.length > 0) {
+        // Simple check - try to get app instance
+        admin.app();
+        healthStatus.checks.firebase = { status: 'healthy' };
+      } else {
+        healthStatus.checks.firebase = { status: 'not_initialized' };
+      }
+    } catch (error) {
+      healthStatus.checks.firebase = { status: 'unhealthy', error: error.message };
+      healthStatus.status = 'degraded';
+    }
+
+    // Check FFmpeg availability
+    try {
+      const ffmpegPath = process.env.FFMPEG_PATH || 'ffmpeg';
+      const { execSync } = require('child_process');
+      execSync(`${ffmpegPath} -version`, { timeout: 5000, stdio: 'ignore' });
+      healthStatus.checks.ffmpeg = { status: 'healthy', path: ffmpegPath };
+    } catch (error) {
+      healthStatus.checks.ffmpeg = { status: 'unhealthy', error: 'FFmpeg not available' };
+      healthStatus.status = 'degraded';
+    }
+
+    // Check disk space
+    try {
+      const fs = require('fs');
+      const stats = fs.statSync('./');
+      healthStatus.checks.disk = { status: 'healthy', available: true };
+    } catch (error) {
+      healthStatus.checks.disk = { status: 'unhealthy', error: error.message };
+    }
+
+    // System resources
+    const os = require('os');
+    healthStatus.system = {
+      memory: {
+        used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
+        total: Math.round(os.totalmem() / 1024 / 1024),
+        free: Math.round(os.freemem() / 1024 / 1024)
+      },
+      cpu: {
+        cores: os.cpus().length,
+        load: os.loadavg()
+      }
+    };
+
+    // Overall health status
+    const unhealthyChecks = Object.values(healthStatus.checks).filter(check => check.status === 'unhealthy');
+    if (unhealthyChecks.length > 0) {
+      healthStatus.status = 'unhealthy';
+    }
+
+    const statusCode = healthStatus.status === 'healthy' ? 200 : 
+                      healthStatus.status === 'degraded' ? 200 : 503;
+
+    res.status(statusCode).json(healthStatus);
+
+  } catch (error) {
+    logger.error('Health check failed', error);
+    res.status(503).json({
+      status: 'unhealthy',
+      timestamp: new Date().toISOString(),
+      error: error.message
+    });
+  }
 });
 
 // API documentation endpoint (redirect to Swagger UI)

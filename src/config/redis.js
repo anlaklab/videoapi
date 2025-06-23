@@ -7,10 +7,9 @@ const redisConfig = {
   port: process.env.REDIS_PORT || 6379,
   password: process.env.REDIS_PASSWORD || undefined,
   db: process.env.REDIS_DB || 0,
-  maxRetriesPerRequest: 3,
+  maxRetriesPerRequest: null, // Para BullMQ compatibility
   retryDelayOnFailover: 100,
   enableReadyCheck: false,
-  maxRetriesPerRequest: null,
   lazyConnect: true,
   keepAlive: 30000,
   connectTimeout: 60000,

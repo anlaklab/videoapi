@@ -9,13 +9,15 @@ const VIDEO_QUEUE_NAME = 'video-processing';
 const videoQueue = new Queue(VIDEO_QUEUE_NAME, {
   connection: bullMQConnection.connection,
   defaultJobOptions: {
-    removeOnComplete: 100, // Mantener 100 trabajos completados
-    removeOnFail: 50,      // Mantener 50 trabajos fallidos
-    attempts: 3,           // Máximo 3 intentos
+    removeOnComplete: 50,  // Reducir uso de memoria
+    removeOnFail: 25,      // Mantener menos trabajos fallidos
+    attempts: 5,           // Más intentos de reintento
     backoff: {
       type: 'exponential',
       delay: 2000,         // Retraso inicial de 2 segundos
     },
+    // TTL para trabajos (24 horas)
+    ttl: 24 * 60 * 60 * 1000,
   },
 });
 

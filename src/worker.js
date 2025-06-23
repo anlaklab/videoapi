@@ -14,9 +14,31 @@ const WebhookService = require('./services/webhookService');
 const { validateVideoRequest } = require('./validation/schemas');
 const Redis = require('ioredis');
 
+// Configuración dinámica del worker basada en recursos del sistema
+const os = require('os');
+
+const getDynamicConcurrency = () => {
+  const cpus = os.cpus().length;
+  const totalMemory = os.totalmem();
+  const freeMemory = os.freemem();
+  
+  // Calcular concurrencia basada en CPU y memoria disponible
+  let concurrency = Math.max(1, Math.floor(cpus / 2));
+  
+  // Reducir concurrencia si hay poca memoria libre (menos del 20%)
+  if (freeMemory / totalMemory < 0.2) {
+    concurrency = Math.max(1, Math.floor(concurrency / 2));
+  }
+  
+  // Máximo 4 trabajos concurrentes para evitar sobrecarga
+  return Math.min(concurrency, 4);
+};
+
 // Configuración del worker
-const WORKER_CONCURRENCY = parseInt(process.env.WORKER_CONCURRENCY) || 2;
+const WORKER_CONCURRENCY = parseInt(process.env.WORKER_CONCURRENCY) || getDynamicConcurrency();
 const WORKER_NAME = process.env.WORKER_NAME || `worker-${process.pid}`;
+
+logger.info(`Worker: Configuración dinámica - CPUs: ${os.cpus().length}, Concurrencia: ${WORKER_CONCURRENCY}, Memoria libre: ${Math.round((os.freemem() / os.totalmem()) * 100)}%`);
 
 class VideoWorker {
   constructor() {
