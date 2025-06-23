@@ -1,0 +1,1668 @@
+{
+  "id": "ed24c0e0-d9a3-4132-9965-06b7e5d98b5e",
+  "name": "Phone Mockup Kit Professional - Test Complete",
+  "description": "Template generado desde After Effects: Animated Phone Mockup Kit",
+  "type": "after-effects",
+  "version": "1.0.0",
+  "createdAt": "2025-06-23T17:56:49.056Z",
+  "duration": 10,
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "frameRate": 30,
+  "source": {
+    "type": "after-effects",
+    "projectName": "Animated Phone Mockup Kit",
+    "projectType": "phone-mockup",
+    "compositionName": "Main Composition"
+  },
+  "mergeFields": [
+    {
+      "key": "PHONE_BODY_ASSET",
+      "type": "image",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+      "description": "Asset del cuerpo del teléfono (archivo .mov)"
+    },
+    {
+      "key": "PHONE_GLASS_ASSET",
+      "type": "image",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+      "description": "Asset del cristal del teléfono (archivo .mov)"
+    },
+    {
+      "key": "SCREEN_CONTENT",
+      "type": "text",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+      "description": "Contenido de la pantalla del teléfono"
+    },
+    {
+      "key": "BACKGROUND_COLOR",
+      "type": "color",
+      "defaultValue": "#000000",
+      "description": "Color de fondo del video"
+    },
+    {
+      "key": "TITLE_TEXT",
+      "type": "text",
+      "defaultValue": "Título Principal",
+      "description": "Texto del título principal"
+    },
+    {
+      "key": "SUBTITLE_TEXT",
+      "type": "text",
+      "defaultValue": "Subtítulo",
+      "description": "Texto del subtítulo"
+    },
+    {
+      "key": "TEXT_COLOR",
+      "type": "color",
+      "defaultValue": "#FFFFFF",
+      "description": "Color del texto"
+    }
+  ],
+  "timeline": {
+    "tracks": [
+      {
+        "id": 0,
+        "name": "Background Track",
+        "type": "background",
+        "clips": [
+          {
+            "id": "5ccc68bf-c784-44be-b884-cccc8fb9a26a",
+            "name": "Background",
+            "type": "background",
+            "start": 0,
+            "duration": 10,
+            "color": "{{BACKGROUND_COLOR}}",
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          }
+        ],
+        "metadata": {
+          "layerCount": 1,
+          "duration": 10,
+          "hasAnimations": false,
+          "hasEffects": false,
+          "optimizations": {
+            "originalCount": 1,
+            "optimizedCount": 1,
+            "clipsRemoved": 0,
+            "optimizationRatio": 1
+          }
+        }
+      },
+      {
+        "id": 1,
+        "name": "Video Track",
+        "type": "video",
+        "clips": [
+          {
+            "id": "bfd8d6b6-2287-406b-94d7-9af742b5c21e",
+            "name": "Phone Body",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{PHONE_BODY_ASSET}}",
+            "scale": 1,
+            "opacity": 1,
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          },
+          {
+            "id": "689a6c87-7102-43ee-9196-da4f62b2a1f5",
+            "name": "Phone Screen",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{SCREEN_CONTENT}}",
+            "scale": 0.8,
+            "opacity": 1,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "effects": [
+              {
+                "type": "dropShadow",
+                "strength": 1
+              },
+              {
+                "type": "glow",
+                "strength": 1
+              }
+            ]
+          },
+          {
+            "id": "3dd1ce62-c469-4402-838f-f402efd4b5d2",
+            "name": "Phone Glass",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{PHONE_GLASS_ASSET}}",
+            "scale": 1,
+            "opacity": 0.9,
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          }
+        ],
+        "metadata": {
+          "layerCount": 3,
+          "duration": 10,
+          "hasAnimations": false,
+          "hasEffects": true,
+          "optimizations": {
+            "originalCount": 3,
+            "optimizedCount": 3,
+            "clipsRemoved": 0,
+            "optimizationRatio": 1
+          }
+        }
+      },
+      {
+        "id": 2,
+        "name": "Text Track",
+        "type": "text",
+        "clips": [
+          {
+            "id": "edf2b61c-73fc-4a07-85ab-b09a5aa052e2",
+            "name": "Title Text",
+            "type": "text",
+            "start": 1,
+            "duration": 3,
+            "text": "{{TITLE_TEXT}}",
+            "fontSize": 48,
+            "color": "{{TEXT_COLOR}}",
+            "fontFamily": "Arial",
+            "position": {
+              "x": 960,
+              "y": 200
+            },
+            "animations": [
+              {
+                "type": "fadeIn",
+                "duration": 1,
+                "easing": "ease-in-out",
+                "delay": 0,
+                "direction": "normal",
+                "iterations": 1
+              },
+              {
+                "type": "slideDown",
+                "duration": 1,
+                "easing": "ease-in-out",
+                "delay": 0,
+                "direction": "normal",
+                "iterations": 1
+              }
+            ],
+            "animation": {
+              "type": "fadeIn",
+              "duration": 1,
+              "easing": "ease-in-out",
+              "delay": 0,
+              "direction": "normal",
+              "iterations": 1
+            }
+          },
+          {
+            "id": "1a4d0794-1710-40de-9053-9ab30de0af00",
+            "name": "Subtitle Text",
+            "type": "text",
+            "start": 2,
+            "duration": 4,
+            "text": "{{SUBTITLE_TEXT}}",
+            "fontSize": 32,
+            "color": "{{TEXT_COLOR}}",
+            "fontFamily": "Arial",
+            "position": {
+              "x": 960,
+              "y": 280
+            },
+            "animations": [
+              {
+                "type": "fadeIn",
+                "duration": 1,
+                "easing": "ease-in-out",
+                "delay": 0,
+                "direction": "normal",
+                "iterations": 1
+              }
+            ],
+            "animation": {
+              "type": "fadeIn",
+              "duration": 1,
+              "easing": "ease-in-out",
+              "delay": 0,
+              "direction": "normal",
+              "iterations": 1
+            }
+          }
+        ],
+        "metadata": {
+          "layerCount": 2,
+          "duration": 6,
+          "hasAnimations": true,
+          "hasEffects": false,
+          "optimizations": {
+            "originalCount": 2,
+            "optimizedCount": 2,
+            "clipsRemoved": 0,
+            "optimizationRatio": 1
+          }
+        }
+      }
+    ],
+    "duration": 10,
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frameRate": 30,
+    "background": {
+      "type": "color",
+      "color": "{{BACKGROUND_COLOR}}"
+    }
+  },
+  "assets": [
+    {
+      "id": "1",
+      "name": "Mockup Variant 1",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+          "size": 75304180
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+          "size": 19995002
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+          "size": 34151441
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "10",
+      "name": "Mockup Variant 10",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Body.mov",
+          "size": 14525920
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Glass.mov",
+          "size": 10521353
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Screen.mov",
+          "size": 9462249
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "11",
+      "name": "Mockup Variant 11",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Body.mov",
+          "size": 58181554
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Glass.mov",
+          "size": 17914061
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Screen.mov",
+          "size": 27936062
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "12",
+      "name": "Mockup Variant 12",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Body.mov",
+          "size": 24755256
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Glass.mov",
+          "size": 11966781
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Screen.mov",
+          "size": 12884439
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "13",
+      "name": "Mockup Variant 13",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Body.mov",
+          "size": 36556211
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Glass.mov",
+          "size": 14460256
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Screen.mov",
+          "size": 15339001
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "14",
+      "name": "Mockup Variant 14",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Body.mov",
+          "size": 57108045
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Glass.mov",
+          "size": 14826466
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Screen.mov",
+          "size": 21656214
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "15",
+      "name": "Mockup Variant 15",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body 1",
+          "fileName": "Body 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 1.mov",
+          "size": 25470872
+        },
+        {
+          "component": "body 2",
+          "fileName": "Body 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 2.mov",
+          "size": 31149234
+        },
+        {
+          "component": "glass 1",
+          "fileName": "Glass 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 1.mov",
+          "size": 15619590
+        },
+        {
+          "component": "glass 2",
+          "fileName": "Glass 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 2.mov",
+          "size": 15954978
+        },
+        {
+          "component": "screen 1",
+          "fileName": "Screen 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 1.mov",
+          "size": 16232158
+        },
+        {
+          "component": "screen 2",
+          "fileName": "Screen 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 2.mov",
+          "size": 16741242
+        }
+      ],
+      "hasMultipleComponents": true
+    },
+    {
+      "id": "16",
+      "name": "Mockup Variant 16",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Body.mov",
+          "size": 74335103
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Glass.mov",
+          "size": 15511826
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Screen.mov",
+          "size": 23272427
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "17",
+      "name": "Mockup Variant 17",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Body.mov",
+          "size": 66313127
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Glass.mov",
+          "size": 16671708
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Screen.mov",
+          "size": 25732153
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "18",
+      "name": "Mockup Variant 18",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Body.mov",
+          "size": 34456796
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Glass.mov",
+          "size": 12568773
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Screen.mov",
+          "size": 14123982
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "19",
+      "name": "Mockup Variant 19",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Body.mov",
+          "size": 37251185
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Glass.mov",
+          "size": 11896500
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Screen.mov",
+          "size": 14074065
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "2",
+      "name": "Mockup Variant 2",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Body.mov",
+          "size": 128910244
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Glass.mov",
+          "size": 39767716
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Screen.mov",
+          "size": 49236341
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "20",
+      "name": "Mockup Variant 20",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Body.mov",
+          "size": 40807079
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Glass.mov",
+          "size": 17772009
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Screen.mov",
+          "size": 21145171
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "3",
+      "name": "Mockup Variant 3",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body 1",
+          "fileName": "Body 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 1.mov",
+          "size": 31175132
+        },
+        {
+          "component": "body 2",
+          "fileName": "Body 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 2.mov",
+          "size": 30079728
+        },
+        {
+          "component": "glass 1",
+          "fileName": "Glass 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 1.mov",
+          "size": 14085667
+        },
+        {
+          "component": "glass 2",
+          "fileName": "Glass 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 2.mov",
+          "size": 10717149
+        },
+        {
+          "component": "screen 1",
+          "fileName": "Screen 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 1.mov",
+          "size": 15561206
+        },
+        {
+          "component": "screen 2",
+          "fileName": "Screen 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 2.mov",
+          "size": 10911257
+        }
+      ],
+      "hasMultipleComponents": true
+    },
+    {
+      "id": "4",
+      "name": "Mockup Variant 4",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Body.mov",
+          "size": 57034188
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Glass.mov",
+          "size": 18270268
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Screen.mov",
+          "size": 21534533
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "5",
+      "name": "Mockup Variant 5",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body 1",
+          "fileName": "Body 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 1.mov",
+          "size": 25925622
+        },
+        {
+          "component": "body 2",
+          "fileName": "Body 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 2.mov",
+          "size": 24025865
+        },
+        {
+          "component": "glass 1",
+          "fileName": "Glass 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 1.mov",
+          "size": 13528712
+        },
+        {
+          "component": "glass 2",
+          "fileName": "Glass 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 2.mov",
+          "size": 13142591
+        },
+        {
+          "component": "screen 1",
+          "fileName": "Screen 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 1.mov",
+          "size": 14614979
+        },
+        {
+          "component": "screen 2",
+          "fileName": "Screen 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 2.mov",
+          "size": 13838653
+        }
+      ],
+      "hasMultipleComponents": true
+    },
+    {
+      "id": "6",
+      "name": "Mockup Variant 6",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Body.mov",
+          "size": 43740251
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Glass.mov",
+          "size": 15796957
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Screen.mov",
+          "size": 23003728
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "7",
+      "name": "Mockup Variant 7",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body",
+          "fileName": "Body.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Body.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Body.mov",
+          "size": 37502577
+        },
+        {
+          "component": "glass",
+          "fileName": "Glass.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Glass.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Glass.mov",
+          "size": 16803831
+        },
+        {
+          "component": "screen",
+          "fileName": "Screen.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Screen.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Screen.mov",
+          "size": 18723477
+        }
+      ],
+      "hasMultipleComponents": false
+    },
+    {
+      "id": "8",
+      "name": "Mockup Variant 8",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body 1",
+          "fileName": "Body 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 1.mov",
+          "size": 55162974
+        },
+        {
+          "component": "body 2",
+          "fileName": "Body 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 2.mov",
+          "size": 40258364
+        },
+        {
+          "component": "glass 1",
+          "fileName": "Glass 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 1.mov",
+          "size": 22533426
+        },
+        {
+          "component": "glass 2",
+          "fileName": "Glass 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 2.mov",
+          "size": 20052779
+        },
+        {
+          "component": "screen 1",
+          "fileName": "Screen 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 1.mov",
+          "size": 31711550
+        },
+        {
+          "component": "screen 2",
+          "fileName": "Screen 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 2.mov",
+          "size": 21594568
+        }
+      ],
+      "hasMultipleComponents": true
+    },
+    {
+      "id": "9",
+      "name": "Mockup Variant 9",
+      "type": "phone-mockup-variant",
+      "components": [
+        {
+          "component": "body 1",
+          "fileName": "Body 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 1.mov",
+          "size": 19249808
+        },
+        {
+          "component": "body 2",
+          "fileName": "Body 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 2.mov",
+          "size": 32271563
+        },
+        {
+          "component": "glass 1",
+          "fileName": "Glass 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 1.mov",
+          "size": 9321341
+        },
+        {
+          "component": "glass 2",
+          "fileName": "Glass 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 2.mov",
+          "size": 11118712
+        },
+        {
+          "component": "screen 1",
+          "fileName": "Screen 1.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 1.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 1.mov",
+          "size": 9794118
+        },
+        {
+          "component": "screen 2",
+          "fileName": "Screen 2.mov",
+          "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 2.mov",
+          "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 2.mov",
+          "size": 11974400
+        }
+      ],
+      "hasMultipleComponents": true
+    }
+  ],
+  "optimizedAssets": [
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+      "size": 75304180,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+      "size": 19995002,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+      "size": 34151441,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Body.mov",
+      "size": 14525920,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Glass.mov",
+      "size": 10521353,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Screen.mov",
+      "size": 9462249,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Body.mov",
+      "size": 58181554,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Glass.mov",
+      "size": 17914061,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Screen.mov",
+      "size": 27936062,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Body.mov",
+      "size": 24755256,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Glass.mov",
+      "size": 11966781,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Screen.mov",
+      "size": 12884439,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Body.mov",
+      "size": 36556211,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Glass.mov",
+      "size": 14460256,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Screen.mov",
+      "size": 15339001,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Body.mov",
+      "size": 57108045,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Glass.mov",
+      "size": 14826466,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Screen.mov",
+      "size": 21656214,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Screen.mov"
+    },
+    {
+      "component": "body 1",
+      "fileName": "Body 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 1.mov",
+      "size": 25470872,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 1.mov"
+    },
+    {
+      "component": "body 2",
+      "fileName": "Body 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 2.mov",
+      "size": 31149234,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 2.mov"
+    },
+    {
+      "component": "glass 1",
+      "fileName": "Glass 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 1.mov",
+      "size": 15619590,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 1.mov"
+    },
+    {
+      "component": "glass 2",
+      "fileName": "Glass 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 2.mov",
+      "size": 15954978,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 2.mov"
+    },
+    {
+      "component": "screen 1",
+      "fileName": "Screen 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 1.mov",
+      "size": 16232158,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 1.mov"
+    },
+    {
+      "component": "screen 2",
+      "fileName": "Screen 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 2.mov",
+      "size": 16741242,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 2.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Body.mov",
+      "size": 74335103,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Glass.mov",
+      "size": 15511826,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Screen.mov",
+      "size": 23272427,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Body.mov",
+      "size": 66313127,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Glass.mov",
+      "size": 16671708,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Screen.mov",
+      "size": 25732153,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Body.mov",
+      "size": 34456796,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Glass.mov",
+      "size": 12568773,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Screen.mov",
+      "size": 14123982,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Body.mov",
+      "size": 37251185,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Glass.mov",
+      "size": 11896500,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Screen.mov",
+      "size": 14074065,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Body.mov",
+      "size": 128910244,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Glass.mov",
+      "size": 39767716,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Screen.mov",
+      "size": 49236341,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Body.mov",
+      "size": 40807079,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Glass.mov",
+      "size": 17772009,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Screen.mov",
+      "size": 21145171,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Screen.mov"
+    },
+    {
+      "component": "body 1",
+      "fileName": "Body 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 1.mov",
+      "size": 31175132,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 1.mov"
+    },
+    {
+      "component": "body 2",
+      "fileName": "Body 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 2.mov",
+      "size": 30079728,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 2.mov"
+    },
+    {
+      "component": "glass 1",
+      "fileName": "Glass 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 1.mov",
+      "size": 14085667,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 1.mov"
+    },
+    {
+      "component": "glass 2",
+      "fileName": "Glass 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 2.mov",
+      "size": 10717149,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 2.mov"
+    },
+    {
+      "component": "screen 1",
+      "fileName": "Screen 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 1.mov",
+      "size": 15561206,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 1.mov"
+    },
+    {
+      "component": "screen 2",
+      "fileName": "Screen 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 2.mov",
+      "size": 10911257,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 2.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Body.mov",
+      "size": 57034188,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Glass.mov",
+      "size": 18270268,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Screen.mov",
+      "size": 21534533,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Screen.mov"
+    },
+    {
+      "component": "body 1",
+      "fileName": "Body 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 1.mov",
+      "size": 25925622,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 1.mov"
+    },
+    {
+      "component": "body 2",
+      "fileName": "Body 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 2.mov",
+      "size": 24025865,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 2.mov"
+    },
+    {
+      "component": "glass 1",
+      "fileName": "Glass 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 1.mov",
+      "size": 13528712,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 1.mov"
+    },
+    {
+      "component": "glass 2",
+      "fileName": "Glass 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 2.mov",
+      "size": 13142591,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 2.mov"
+    },
+    {
+      "component": "screen 1",
+      "fileName": "Screen 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 1.mov",
+      "size": 14614979,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 1.mov"
+    },
+    {
+      "component": "screen 2",
+      "fileName": "Screen 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 2.mov",
+      "size": 13838653,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 2.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Body.mov",
+      "size": 43740251,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Glass.mov",
+      "size": 15796957,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Screen.mov",
+      "size": 23003728,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Screen.mov"
+    },
+    {
+      "component": "body",
+      "fileName": "Body.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Body.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Body.mov",
+      "size": 37502577,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Body.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Body.mov"
+    },
+    {
+      "component": "glass",
+      "fileName": "Glass.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Glass.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Glass.mov",
+      "size": 16803831,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Glass.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Glass.mov"
+    },
+    {
+      "component": "screen",
+      "fileName": "Screen.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Screen.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Screen.mov",
+      "size": 18723477,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Screen.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Screen.mov"
+    },
+    {
+      "component": "body 1",
+      "fileName": "Body 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 1.mov",
+      "size": 55162974,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 1.mov"
+    },
+    {
+      "component": "body 2",
+      "fileName": "Body 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 2.mov",
+      "size": 40258364,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 2.mov"
+    },
+    {
+      "component": "glass 1",
+      "fileName": "Glass 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 1.mov",
+      "size": 22533426,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 1.mov"
+    },
+    {
+      "component": "glass 2",
+      "fileName": "Glass 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 2.mov",
+      "size": 20052779,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 2.mov"
+    },
+    {
+      "component": "screen 1",
+      "fileName": "Screen 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 1.mov",
+      "size": 31711550,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 1.mov"
+    },
+    {
+      "component": "screen 2",
+      "fileName": "Screen 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 2.mov",
+      "size": 21594568,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 2.mov"
+    },
+    {
+      "component": "body 1",
+      "fileName": "Body 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 1.mov",
+      "size": 19249808,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 1.mov"
+    },
+    {
+      "component": "body 2",
+      "fileName": "Body 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 2.mov",
+      "size": 32271563,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 2.mov"
+    },
+    {
+      "component": "glass 1",
+      "fileName": "Glass 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 1.mov",
+      "size": 9321341,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 1.mov"
+    },
+    {
+      "component": "glass 2",
+      "fileName": "Glass 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 2.mov",
+      "size": 11118712,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 2.mov"
+    },
+    {
+      "component": "screen 1",
+      "fileName": "Screen 1.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 1.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 1.mov",
+      "size": 9794118,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 1.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 1.mov"
+    },
+    {
+      "component": "screen 2",
+      "fileName": "Screen 2.mov",
+      "absolutePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 2.mov",
+      "relativePath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 2.mov",
+      "size": 11974400,
+      "optimizedPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 2.mov",
+      "renderPath": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 2.mov"
+    }
+  ],
+  "stats": {
+    "totalTracks": 3,
+    "totalClips": 6,
+    "duration": 10,
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frameRate": 30,
+    "trackStats": {
+      "background": {
+        "clipCount": 1,
+        "duration": 10
+      },
+      "video": {
+        "clipCount": 3,
+        "duration": 10
+      },
+      "text": {
+        "clipCount": 2,
+        "duration": 6
+      }
+    },
+    "clipTypes": {
+      "background": 1,
+      "video": 3,
+      "text": 2
+    },
+    "hasAnimations": true,
+    "hasEffects": true
+  }
+}

@@ -1,0 +1,342 @@
+{
+  "id": "95c51f9d-5e17-4421-b3ef-f83646ce7d9c",
+  "name": "Professional Phone Mockup Kit - Complete",
+  "description": "Complete phone mockup template using real After Effects assets with 3D phone components",
+  "timeline": {
+    "duration": 12,
+    "tracks": [
+      {
+        "id": "track_background",
+        "clips": [
+          {
+            "type": "image",
+            "start": 0,
+            "duration": 12,
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "src": "assets/unsplash/images/mountain-landscape.jpg",
+            "scale": 1.2,
+            "animations": [
+              {
+                "type": "zoom",
+                "startValue": 1,
+                "endValue": 1.2,
+                "duration": 12,
+                "easing": "ease-out"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_phone_body",
+        "clips": [
+          {
+            "type": "image",
+            "start": 1,
+            "duration": 10,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "src": "assets/images/test-image.jpg",
+            "scale": 0.8,
+            "animations": [
+              {
+                "type": "slideIn",
+                "direction": "bottom",
+                "duration": 1.5,
+                "easing": "ease-out"
+              },
+              {
+                "type": "oscillate",
+                "property": "rotation",
+                "amplitude": 2,
+                "frequency": 0.5,
+                "waveform": "sine"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_screen_content",
+        "clips": [
+          {
+            "type": "image",
+            "start": 2,
+            "duration": 8,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "src": "{{SCREEN_CONTENT}}",
+            "scale": 0.6,
+            "animations": [
+              {
+                "type": "fadeIn",
+                "duration": 1,
+                "delay": 0.5
+              },
+              {
+                "type": "auto-scale",
+                "responsive": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_phone_glass",
+        "clips": [
+          {
+            "type": "image",
+            "start": 1.5,
+            "duration": 9,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "src": "assets/images/test-image.jpg",
+            "scale": 0.8,
+            "blendMode": "overlay",
+            "opacity": 0.8,
+            "animations": [
+              {
+                "type": "fadeIn",
+                "duration": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_title",
+        "clips": [
+          {
+            "type": "text",
+            "start": 0.5,
+            "duration": 4,
+            "position": {
+              "x": 960,
+              "y": 200
+            },
+            "text": "{{TITLE}}",
+            "style": {
+              "fontSize": 72,
+              "color": "{{TEXT_COLOR}}",
+              "fontFamily": "Helvetica Neue",
+              "fontWeight": "bold",
+              "textAlign": "center",
+              "textShadow": "0 4px 8px rgba(0,0,0,0.5)"
+            },
+            "animations": [
+              {
+                "type": "typing",
+                "duration": 2,
+                "easing": "ease-out"
+              },
+              {
+                "type": "wiggle",
+                "amplitude": 2,
+                "frequency": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_subtitle",
+        "clips": [
+          {
+            "type": "text",
+            "start": 3,
+            "duration": 6,
+            "position": {
+              "x": 960,
+              "y": 850
+            },
+            "text": "{{SUBTITLE}}",
+            "style": {
+              "fontSize": 36,
+              "color": "{{SUBTITLE_COLOR}}",
+              "fontFamily": "Helvetica Neue",
+              "fontWeight": "normal",
+              "textAlign": "center",
+              "backgroundColor": "rgba(0,0,0,0.7)",
+              "padding": "20px 40px",
+              "borderRadius": "25px"
+            },
+            "animations": [
+              {
+                "type": "slideIn",
+                "direction": "up",
+                "duration": 1,
+                "easing": "ease-out"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_logo",
+        "clips": [
+          {
+            "type": "image",
+            "start": 9,
+            "duration": 3,
+            "position": {
+              "x": 1600,
+              "y": 200
+            },
+            "src": "{{LOGO_URL}}",
+            "scale": 0.3,
+            "animations": [
+              {
+                "type": "zoom",
+                "startValue": 0,
+                "endValue": 0.3,
+                "duration": 0.8,
+                "easing": "bounce"
+              },
+              {
+                "type": "oscillate",
+                "property": "scale",
+                "amplitude": 0.05,
+                "frequency": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_cta",
+        "clips": [
+          {
+            "type": "text",
+            "start": 8,
+            "duration": 4,
+            "position": {
+              "x": 960,
+              "y": 980
+            },
+            "text": "{{CTA_TEXT}}",
+            "style": {
+              "fontSize": 28,
+              "color": "#FFFFFF",
+              "fontFamily": "Helvetica Neue",
+              "fontWeight": "bold",
+              "textAlign": "center",
+              "backgroundColor": "{{CTA_COLOR}}",
+              "padding": "15px 50px",
+              "borderRadius": "50px",
+              "border": "3px solid #FFFFFF"
+            },
+            "animations": [
+              {
+                "type": "pulse",
+                "duration": 0.8,
+                "iterations": 3
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "background": {
+      "color": "{{BG_COLOR}}"
+    },
+    "transitions": [
+      {
+        "type": "crossfade",
+        "start": 0,
+        "duration": 1,
+        "easing": "ease-in-out"
+      },
+      {
+        "type": "zoom",
+        "start": 8,
+        "duration": 2,
+        "targetScale": 1.1,
+        "easing": "ease-out"
+      }
+    ],
+    "filters": [
+      {
+        "type": "color-correction",
+        "brightness": 1.1,
+        "contrast": 1.2,
+        "saturation": 1.15
+      },
+      {
+        "type": "motion-blur",
+        "intensity": 0.3,
+        "angle": 0
+      }
+    ]
+  },
+  "defaultOutput": {},
+  "mergeFields": {
+    "TITLE": {
+      "type": "text",
+      "description": "Main title text",
+      "required": true,
+      "maxLength": 50
+    },
+    "SUBTITLE": {
+      "type": "text",
+      "description": "Subtitle or description",
+      "required": true,
+      "maxLength": 100
+    },
+    "SCREEN_CONTENT": {
+      "type": "text",
+      "description": "Content to display on phone screen",
+      "required": true,
+      "validation": "url"
+    },
+    "LOGO_URL": {
+      "type": "text",
+      "description": "Logo image URL",
+      "required": false,
+      "validation": "url"
+    },
+    "TEXT_COLOR": {
+      "type": "text",
+      "description": "Main text color",
+      "required": false,
+      "default": "#FFFFFF"
+    },
+    "SUBTITLE_COLOR": {
+      "type": "text",
+      "description": "Subtitle text color",
+      "required": false,
+      "default": "#E0E0E0"
+    },
+    "BG_COLOR": {
+      "type": "text",
+      "description": "Background color",
+      "required": false,
+      "default": "#1A1A2E"
+    },
+    "CTA_TEXT": {
+      "type": "text",
+      "description": "Call to action text",
+      "required": false,
+      "default": "Download Now!"
+    },
+    "CTA_COLOR": {
+      "type": "text",
+      "description": "Call to action color",
+      "required": false,
+      "default": "#FF6B6B"
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-06-23T09:10:49.057Z",
+    "updatedAt": "2025-06-23T09:10:49.057Z",
+    "version": "1.0.0"
+  }
+}

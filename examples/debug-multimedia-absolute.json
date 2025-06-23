@@ -1,0 +1,31 @@
+{
+  "timeline": {
+    "background": {
+      "color": "#1a1a2e"
+    },
+    "tracks": [
+      {
+        "clips": [
+          {
+            "type": "video",
+            "src": "/Users/miguelsuredasuau/ffmpeg/assets/videos/test-video.mp4",
+            "start": 0,
+            "duration": 5,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "output": {
+    "format": "mp4",
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "fps": 30
+  }
+} 

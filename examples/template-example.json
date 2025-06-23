@@ -1,0 +1,158 @@
+{
+  "name": "Social Media Post Template",
+  "description": "Template for creating social media video posts with dynamic text and branding",
+  "category": "social-media",
+  "tags": ["instagram", "facebook", "marketing", "post"],
+  "timeline": {
+    "tracks": [
+      {
+        "clips": [
+          {
+            "type": "image",
+            "src": "{{background_image}}",
+            "start": 0,
+            "duration": 8,
+            "position": { "x": 0, "y": 0 },
+            "scale": 1.1,
+            "opacity": 100,
+            "zIndex": 0
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "type": "image",
+            "src": "{{logo_url}}",
+            "start": 0,
+            "duration": 8,
+            "position": { "x": "5%", "y": "5%" },
+            "scale": 0.3,
+            "opacity": 90,
+            "zIndex": 2
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "type": "text",
+            "content": "{{main_title}}",
+            "start": 1,
+            "duration": 6,
+            "position": { "x": "50%", "y": "40%" },
+            "fontSize": 56,
+            "color": "#FFFFFF",
+            "font": "Arial",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "shadow": {
+              "color": "#000000",
+              "offsetX": 3,
+              "offsetY": 3,
+              "blur": 6
+            },
+            "zIndex": 3,
+            "animations": [
+              {
+                "type": "fade-in",
+                "duration": 1,
+                "easing": "ease-out"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "content": "{{subtitle}}",
+            "start": 2.5,
+            "duration": 4.5,
+            "position": { "x": "50%", "y": "60%" },
+            "fontSize": 32,
+            "color": "#FFFF00",
+            "font": "Arial",
+            "fontWeight": "normal",
+            "textAlign": "center",
+            "shadow": {
+              "color": "#000000",
+              "offsetX": 2,
+              "offsetY": 2,
+              "blur": 4
+            },
+            "zIndex": 3,
+            "animations": [
+              {
+                "type": "slide",
+                "direction": "up",
+                "duration": 0.8,
+                "easing": "ease-out"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "content": "{{call_to_action}}",
+            "start": 5,
+            "duration": 3,
+            "position": { "x": "50%", "y": "85%" },
+            "fontSize": 24,
+            "color": "#FFFFFF",
+            "backgroundColor": "#FF4444",
+            "font": "Arial",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "zIndex": 4,
+            "animations": [
+              {
+                "type": "zoom",
+                "duration": 0.5,
+                "easing": "ease-out"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "background": {
+      "color": "#000000"
+    },
+    "filters": [
+      {
+        "type": "brightness",
+        "intensity": 55
+      },
+      {
+        "type": "contrast",
+        "intensity": 65
+      }
+    ]
+  },
+  "mergeFields": {
+    "main_title": {
+      "type": "text",
+      "required": true,
+      "description": "Main title text for the video"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": false,
+      "default": "Discover more",
+      "description": "Subtitle text below the main title"
+    },
+    "call_to_action": {
+      "type": "text",
+      "required": false,
+      "default": "Learn More",
+      "description": "Call to action button text"
+    },
+    "background_image": {
+      "type": "image",
+      "required": true,
+      "description": "Background image URL"
+    },
+    "logo_url": {
+      "type": "image",
+      "required": false,
+      "description": "Company logo image URL"
+    }
+  }
+} 

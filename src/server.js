@@ -1,0 +1,327 @@
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const path = require('path');
+const fs = require('fs-extra');
+const logger = require('./utils/logger');
+const errorHandler = require('./middleware/errorHandler');
+const { authMiddleware } = require('./middleware/authMiddleware');
+const videoRoutes = require('./routes/videoRoutes');
+const templateRoutes = require('./routes/templateRoutes');
+const assetsRoutes = require('./routes/assetsRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const afterEffectsRoutes = require('./routes/afterEffectsRoutes');
+const { setupDirectories } = require('./utils/fileManager');
+const { checkRedisConnection } = require('./config/redis');
+const { initializeFirebase } = require('./config/firebase');
+const { swaggerUi, specs } = require('./config/swagger');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware setup
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+  credentials: true
+}));
+
+app.use(compression());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW) || 15 * 60 * 1000, // 15 minutos
+  max: parseInt(process.env.RATE_LIMIT_MAX) || 100, // límite de requests por ventana
+  message: {
+    error: 'Demasiadas solicitudes desde esta IP, intenta de nuevo más tarde.',
+    retryAfter: Math.ceil((parseInt(process.env.RATE_LIMIT_WINDOW) || 15 * 60 * 1000) / 1000)
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use('/api/', limiter);
+
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Static files for serving generated videos and assets
+app.use('/output', express.static(path.join(__dirname, '../output')));
+app.use('/temp', express.static(path.join(__dirname, '../temp')));
+
+// Request logging
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.path} - ${req.ip}`);
+  next();
+});
+
+// Swagger UI (sin autenticación para facilitar el testing)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'JSON2VIDEO API Documentation'
+}));
+
+// API Routes con autenticación
+app.use('/api/video', authMiddleware, videoRoutes);
+app.use('/api/templates', authMiddleware, templateRoutes);
+app.use('/api/assets', authMiddleware, assetsRoutes);
+app.use('/api/admin', authMiddleware, adminRoutes);
+app.use('/api/aftereffects', authMiddleware, afterEffectsRoutes);
+
+// Página de inicio
+app.get('/', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JSON2VIDEO API</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                min-height: 100vh;
+            }
+            .container {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 40px;
+                border-radius: 20px;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                text-align: center;
+                font-size: 3em;
+                margin-bottom: 10px;
+                background: linear-gradient(45deg, #fff, #f0f0f0);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .subtitle {
+                text-align: center;
+                font-size: 1.2em;
+                margin-bottom: 40px;
+                opacity: 0.9;
+            }
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin: 40px 0;
+            }
+            .feature {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+            }
+            .feature h3 {
+                margin-top: 0;
+                color: #ffd700;
+            }
+            .cta {
+                text-align: center;
+                margin: 40px 0;
+            }
+            .btn {
+                display: inline-block;
+                padding: 15px 30px;
+                margin: 10px;
+                background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                transition: transform 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            }
+            .btn.secondary {
+                background: linear-gradient(45deg, #3742fa, #2f3542);
+            }
+            .api-key {
+                background: rgba(0, 0, 0, 0.2);
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+                border-left: 4px solid #ffd700;
+            }
+            code {
+                background: rgba(0, 0, 0, 0.3);
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-family: 'Monaco', 'Menlo', monospace;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🎬 JSON2VIDEO</h1>
+            <p class="subtitle">API avanzada para convertir JSON en videos profesionales</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>🎯 Multi-Track</h3>
+                    <p>Timeline con múltiples pistas, clips superpuestos y efectos avanzados</p>
+                </div>
+                <div class="feature">
+                    <h3>🎨 Plantillas</h3>
+                    <p>Sistema de plantillas dinámicas con campos personalizables</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Escalable</h3>
+                    <p>Cola de procesamiento con Redis y workers distribuidos</p>
+                </div>
+                <div class="feature">
+                    <h3>🔧 Completo</h3>
+                    <p>Soporte para texto, imágenes, videos, audio y HTML</p>
+                </div>
+                <div class="feature">
+                    <h3>🎬 Transiciones</h3>
+                    <p>8 tipos de transiciones profesionales: fade, crossfade, slide, wipe, dissolve, zoom, rotate, push</p>
+                </div>
+                <div class="feature">
+                    <h3>🎞️ After Effects</h3>
+                    <p>Conversión directa de archivos .aep a templates JSON con expresiones soportadas</p>
+                </div>
+            </div>
+
+            <div class="api-key">
+                <h3>🔑 API Key de Desarrollo</h3>
+                <p>Para empezar a usar la API inmediatamente:</p>
+                <code>x-api-key: dev-key-12345</code>
+            </div>
+
+            <div class="cta">
+                <a href="/api-docs" class="btn">📚 Explorar API (Swagger UI)</a>
+                <a href="/health" class="btn secondary">❤️ Estado del Sistema</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; opacity: 0.7;">
+                <p>🚀 Versión 1.0.0 | Puerto ${PORT} | Node.js ${process.version}</p>
+            </div>
+        </div>
+    </body>
+    </html>
+  `);
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+});
+
+// API documentation endpoint (redirect to Swagger UI)
+app.get('/api/docs', (req, res) => {
+  res.redirect('/api-docs');
+});
+
+// Error handling middleware
+app.use(errorHandler);
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    error: 'Endpoint not found',
+    message: `The requested endpoint ${req.originalUrl} does not exist`
+  });
+});
+
+// Initialize server
+async function startServer() {
+  try {
+    logger.info('Iniciando JSON2VIDEO API Server...');
+    
+    // Setup required directories
+    await setupDirectories();
+    logger.info('✅ Directorios configurados');
+    
+    // Check Redis connection
+    const redisConnected = await checkRedisConnection();
+    if (!redisConnected) {
+      logger.error('❌ No se pudo conectar a Redis');
+      throw new Error('Redis connection failed');
+    }
+    logger.info('✅ Redis conectado');
+    
+    // Initialize Firebase
+    try {
+      await initializeFirebase();
+      logger.info('✅ Firebase inicializado');
+    } catch (error) {
+      if (process.env.NODE_ENV === 'production') {
+        throw error;
+      }
+      logger.warn('⚠️  Firebase no disponible en modo desarrollo');
+    }
+    
+    // Start server
+    const server = app.listen(PORT, () => {
+      logger.info(`🚀 JSON2VIDEO API Server running on port ${PORT}`);
+      logger.info(`📊 Health check: http://localhost:${PORT}/health`);
+      logger.info(`📚 Swagger UI: http://localhost:${PORT}/api-docs`);
+      logger.info(`📖 API Documentation: http://localhost:${PORT}/api/docs`);
+      logger.info(`🔧 Admin Panel: http://localhost:${PORT}/api/admin/dashboard`);
+    });
+
+    // Graceful shutdown
+    const gracefulShutdown = async (signal) => {
+      logger.info(`Recibida señal ${signal}, cerrando servidor...`);
+      
+      server.close(async () => {
+        logger.info('Servidor HTTP cerrado');
+        
+        try {
+          // Aquí se pueden agregar más limpiezas si es necesario
+          logger.info('Limpieza completada');
+          process.exit(0);
+        } catch (error) {
+          logger.error('Error durante limpieza:', error);
+          process.exit(1);
+        }
+      });
+    };
+
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+    
+  } catch (error) {
+    logger.error('Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM received, shutting down gracefully');
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+  logger.info('SIGINT received, shutting down gracefully');
+  process.exit(0);
+});
+
+startServer();
+
+module.exports = app; 

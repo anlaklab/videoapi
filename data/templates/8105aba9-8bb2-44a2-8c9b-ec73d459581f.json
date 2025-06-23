@@ -1,0 +1,65 @@
+{
+  "id": "8105aba9-8bb2-44a2-8c9b-ec73d459581f",
+  "name": "Template After Effects Final",
+  "description": "Template final con sincronización perfecta",
+  "timeline": {
+    "tracks": [
+      {
+        "clips": [
+          {
+            "type": "text",
+            "text": "{{MENSAJE}}",
+            "start": 0,
+            "duration": 6,
+            "position": {
+              "x": 960,
+              "y": 400
+            },
+            "fontSize": 56,
+            "color": "#FFFFFF"
+          },
+          {
+            "type": "text",
+            "text": "{{SUBTITULO}}",
+            "start": 1,
+            "duration": 5,
+            "position": {
+              "x": 960,
+              "y": 600
+            },
+            "fontSize": 32,
+            "color": "#FFD700"
+          }
+        ]
+      }
+    ],
+    "background": {
+      "color": "{{COLOR}}"
+    }
+  },
+  "defaultOutput": {},
+  "mergeFields": {
+    "MENSAJE": {
+      "type": "text",
+      "description": "Mensaje principal",
+      "required": true
+    },
+    "SUBTITULO": {
+      "type": "text",
+      "description": "Subtítulo",
+      "required": false,
+      "default": "Subtítulo por defecto"
+    },
+    "COLOR": {
+      "type": "text",
+      "description": "Color de fondo",
+      "required": false,
+      "default": "#000000"
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-06-23T07:44:18.724Z",
+    "updatedAt": "2025-06-23T07:44:18.724Z",
+    "version": "1.0.0"
+  }
+}

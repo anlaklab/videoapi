@@ -1,0 +1,145 @@
+{
+  "id": "ab677663-2397-493d-9f18-969202682f67",
+  "name": "Phone Mockup Enhanced",
+  "description": "Enhanced phone mockup template with real assets",
+  "timeline": {
+    "tracks": [
+      {
+        "id": "track_title_text",
+        "clips": [
+          {
+            "type": "text",
+            "start": 0,
+            "duration": 5,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "text": "{{TITLE}}",
+            "style": {
+              "fontSize": 48,
+              "color": "#FFFFFF",
+              "fontFamily": "Arial",
+              "fontWeight": "normal",
+              "fontStyle": "normal",
+              "textAlign": "center"
+            },
+            "animations": [
+              {
+                "type": "resize",
+                "property": "scale",
+                "trigger": "text-change",
+                "easing": "ease-out",
+                "duration": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_background",
+        "clips": [
+          {
+            "type": "text",
+            "start": 0,
+            "duration": 10,
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "text": "",
+            "style": {
+              "backgroundColor": "{{BG_COLOR}}"
+            },
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "track_logo",
+        "clips": [
+          {
+            "type": "image",
+            "start": 1,
+            "duration": 8,
+            "position": {
+              "x": 100,
+              "y": 100
+            },
+            "src": "{{LOGO_URL}}",
+            "animations": [
+              {
+                "type": "oscillate",
+                "property": "position",
+                "amplitude": 50,
+                "frequency": 1,
+                "waveform": "sine"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "background": {
+      "color": "#000000"
+    },
+    "transitions": [
+      {
+        "type": "crossfade",
+        "start": 0,
+        "duration": 5,
+        "easing": "ease-in-out"
+      },
+      {
+        "type": "crossfade",
+        "start": 1,
+        "duration": 9,
+        "easing": "ease-in-out"
+      }
+    ],
+    "filters": []
+  },
+  "defaultOutput": {
+    "format": "mp4",
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "fps": 30,
+    "quality": "high"
+  },
+  "mergeFields": {
+    "TITLE": {
+      "type": "text",
+      "description": "Título principal",
+      "required": true,
+      "maxLength": 50
+    },
+    "BG_COLOR": {
+      "type": "text",
+      "description": "Color para BG_COLOR",
+      "required": false,
+      "default": "#000000",
+      "validation": "color"
+    },
+    "LOGO_URL": {
+      "type": "text",
+      "description": "URL para LOGO_URL",
+      "required": true,
+      "validation": "url"
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-06-23T08:44:47.207Z",
+    "updatedAt": "2025-06-23T08:44:47.207Z",
+    "version": "1.0.0",
+    "originalFile": "e6357cc9-3802-4413-ab9e-797000370875-sample-project.aep",
+    "aeVersion": "2024",
+    "importedAt": "2025-06-23T08:44:47.207Z",
+    "compositions": 1,
+    "layers": 3,
+    "expressions": 3,
+    "clientId": "dev-client",
+    "uploadedBy": "Development Key"
+  }
+}

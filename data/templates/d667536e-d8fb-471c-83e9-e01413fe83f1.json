@@ -1,0 +1,305 @@
+{
+  "id": "d667536e-d8fb-471c-83e9-e01413fe83f1",
+  "name": "Phone Mockup Kit - Simple Workflow",
+  "description": "Template generado desde workflow simplificado",
+  "type": "after-effects",
+  "version": "1.0.0",
+  "createdAt": "2025-06-23T18:09:30.095Z",
+  "duration": 10,
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "frameRate": 30,
+  "source": {
+    "type": "after-effects",
+    "projectName": "Animated Phone Mockup Kit",
+    "projectType": "phone-mockup",
+    "compositionName": "Main Composition"
+  },
+  "mergeFields": [
+    {
+      "key": "PHONE_BODY_ASSET",
+      "type": "image",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+      "description": "Asset del cuerpo del teléfono (archivo .mov)"
+    },
+    {
+      "key": "PHONE_GLASS_ASSET",
+      "type": "image",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+      "description": "Asset del cristal del teléfono (archivo .mov)"
+    },
+    {
+      "key": "SCREEN_CONTENT",
+      "type": "text",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+      "description": "Contenido de la pantalla del teléfono"
+    },
+    {
+      "key": "BACKGROUND_COLOR",
+      "type": "color",
+      "defaultValue": "#000000",
+      "description": "Color de fondo del video"
+    },
+    {
+      "key": "TITLE_TEXT",
+      "type": "text",
+      "defaultValue": "Título Principal",
+      "description": "Texto del título principal"
+    },
+    {
+      "key": "SUBTITLE_TEXT",
+      "type": "text",
+      "defaultValue": "Subtítulo",
+      "description": "Texto del subtítulo"
+    },
+    {
+      "key": "TEXT_COLOR",
+      "type": "color",
+      "defaultValue": "#FFFFFF",
+      "description": "Color del texto"
+    }
+  ],
+  "timeline": {
+    "tracks": [
+      {
+        "id": 0,
+        "name": "Background Track",
+        "type": "background",
+        "clips": [
+          {
+            "id": "7c920419-87f5-40b8-9f69-b9aef42cc5ab",
+            "name": "Background",
+            "type": "background",
+            "start": 0,
+            "duration": 10,
+            "color": "{{BACKGROUND_COLOR}}",
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          }
+        ],
+        "metadata": {
+          "layerCount": 1,
+          "duration": 10,
+          "hasAnimations": false,
+          "hasEffects": false,
+          "optimizations": {
+            "originalCount": 1,
+            "optimizedCount": 1,
+            "clipsRemoved": 0,
+            "optimizationRatio": 1
+          }
+        }
+      },
+      {
+        "id": 1,
+        "name": "Video Track",
+        "type": "video",
+        "clips": [
+          {
+            "id": "3d496383-89f5-4e0e-b982-94b0ce88bd9b",
+            "name": "Phone Body",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{PHONE_BODY_ASSET}}",
+            "scale": 1,
+            "opacity": 1,
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          },
+          {
+            "id": "3a134ef5-5b12-4d1c-9bc4-7615930137b4",
+            "name": "Phone Screen",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{SCREEN_CONTENT}}",
+            "scale": 0.8,
+            "opacity": 1,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "effects": [
+              {
+                "type": "dropShadow",
+                "strength": 1
+              },
+              {
+                "type": "glow",
+                "strength": 1
+              }
+            ]
+          },
+          {
+            "id": "04283bfb-06ce-45db-a33c-6bf9fa0376b7",
+            "name": "Phone Glass",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{PHONE_GLASS_ASSET}}",
+            "scale": 1,
+            "opacity": 0.9,
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          }
+        ],
+        "metadata": {
+          "layerCount": 3,
+          "duration": 10,
+          "hasAnimations": false,
+          "hasEffects": true,
+          "optimizations": {
+            "originalCount": 3,
+            "optimizedCount": 3,
+            "clipsRemoved": 0,
+            "optimizationRatio": 1
+          }
+        }
+      },
+      {
+        "id": 2,
+        "name": "Text Track",
+        "type": "text",
+        "clips": [
+          {
+            "id": "53e1b04d-1835-40ad-a876-2063c70e349e",
+            "name": "Title Text",
+            "type": "text",
+            "start": 1,
+            "duration": 3,
+            "text": "{{TITLE_TEXT}}",
+            "fontSize": 48,
+            "color": "{{TEXT_COLOR}}",
+            "fontFamily": "Arial",
+            "position": {
+              "x": 960,
+              "y": 200
+            },
+            "animations": [
+              {
+                "type": "fadeIn",
+                "duration": 1,
+                "easing": "ease-in-out",
+                "delay": 0,
+                "direction": "normal",
+                "iterations": 1
+              },
+              {
+                "type": "slideDown",
+                "duration": 1,
+                "easing": "ease-in-out",
+                "delay": 0,
+                "direction": "normal",
+                "iterations": 1
+              }
+            ],
+            "animation": {
+              "type": "fadeIn",
+              "duration": 1,
+              "easing": "ease-in-out",
+              "delay": 0,
+              "direction": "normal",
+              "iterations": 1
+            }
+          },
+          {
+            "id": "9daff86f-2c17-41c0-9bf5-540f83251e85",
+            "name": "Subtitle Text",
+            "type": "text",
+            "start": 2,
+            "duration": 4,
+            "text": "{{SUBTITLE_TEXT}}",
+            "fontSize": 32,
+            "color": "{{TEXT_COLOR}}",
+            "fontFamily": "Arial",
+            "position": {
+              "x": 960,
+              "y": 280
+            },
+            "animations": [
+              {
+                "type": "fadeIn",
+                "duration": 1,
+                "easing": "ease-in-out",
+                "delay": 0,
+                "direction": "normal",
+                "iterations": 1
+              }
+            ],
+            "animation": {
+              "type": "fadeIn",
+              "duration": 1,
+              "easing": "ease-in-out",
+              "delay": 0,
+              "direction": "normal",
+              "iterations": 1
+            }
+          }
+        ],
+        "metadata": {
+          "layerCount": 2,
+          "duration": 6,
+          "hasAnimations": true,
+          "hasEffects": false,
+          "optimizations": {
+            "originalCount": 2,
+            "optimizedCount": 2,
+            "clipsRemoved": 0,
+            "optimizationRatio": 1
+          }
+        }
+      }
+    ],
+    "duration": 10,
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frameRate": 30,
+    "background": {
+      "type": "color",
+      "color": "{{BACKGROUND_COLOR}}"
+    }
+  },
+  "assets": [],
+  "stats": {
+    "totalTracks": 3,
+    "totalClips": 6,
+    "duration": 10,
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frameRate": 30,
+    "trackStats": {
+      "background": {
+        "clipCount": 1,
+        "duration": 10
+      },
+      "video": {
+        "clipCount": 3,
+        "duration": 10
+      },
+      "text": {
+        "clipCount": 2,
+        "duration": 6
+      }
+    },
+    "clipTypes": {
+      "background": 1,
+      "video": 3,
+      "text": 2
+    },
+    "hasAnimations": true,
+    "hasEffects": true
+  }
+}

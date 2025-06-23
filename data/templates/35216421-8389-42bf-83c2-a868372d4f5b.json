@@ -1,0 +1,71 @@
+{
+  "id": "35216421-8389-42bf-83c2-a868372d4f5b",
+  "name": "After Effects Template Simple",
+  "description": "Template simplificado basado en After Effects",
+  "timeline": {
+    "tracks": [
+      {
+        "clips": [
+          {
+            "type": "text",
+            "text": "{{TITLE}}",
+            "start": 0,
+            "duration": 5,
+            "position": {
+              "x": 960,
+              "y": 400
+            },
+            "fontSize": 64,
+            "color": "#FFFFFF",
+            "textAlign": "center"
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "type": "text",
+            "text": "{{SUBTITLE}}",
+            "start": 1,
+            "duration": 4,
+            "position": {
+              "x": 960,
+              "y": 600
+            },
+            "fontSize": 32,
+            "color": "#FFD700",
+            "textAlign": "center"
+          }
+        ]
+      }
+    ],
+    "background": {
+      "color": "{{BG_COLOR}}"
+    }
+  },
+  "defaultOutput": {},
+  "mergeFields": {
+    "TITLE": {
+      "type": "text",
+      "description": "Título principal",
+      "required": true
+    },
+    "SUBTITLE": {
+      "type": "text",
+      "description": "Subtítulo",
+      "required": false,
+      "default": "Subtítulo por defecto"
+    },
+    "BG_COLOR": {
+      "type": "text",
+      "description": "Color de fondo",
+      "required": false,
+      "default": "#1a1a2e"
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-06-23T07:33:04.109Z",
+    "updatedAt": "2025-06-23T07:33:04.109Z",
+    "version": "1.0.0"
+  }
+}

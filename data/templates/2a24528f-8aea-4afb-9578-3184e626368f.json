@@ -1,0 +1,396 @@
+{
+  "id": "2a24528f-8aea-4afb-9578-3184e626368f",
+  "name": "Phone Mockup Kit Professional",
+  "description": "Template generado desde After Effects: Animated Phone Mockup Kit",
+  "type": "after-effects",
+  "version": "1.0.0",
+  "createdAt": "2025-06-23T09:56:51.307Z",
+  "duration": 10,
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "frameRate": 30,
+  "source": {
+    "type": "after-effects",
+    "projectName": "Animated Phone Mockup Kit",
+    "projectType": "phone-mockup",
+    "compositionName": "Main Composition"
+  },
+  "mergeFields": [
+    {
+      "key": "PHONE_BODY_ASSET",
+      "type": "image",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+      "description": "Asset del cuerpo del teléfono (archivo .mov)"
+    },
+    {
+      "key": "PHONE_GLASS_ASSET",
+      "type": "image",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+      "description": "Asset del cristal del teléfono (archivo .mov)"
+    },
+    {
+      "key": "SCREEN_CONTENT",
+      "type": "text",
+      "defaultValue": "assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov",
+      "description": "Contenido de la pantalla del teléfono"
+    },
+    {
+      "key": "BACKGROUND_COLOR",
+      "type": "color",
+      "defaultValue": "#000000",
+      "description": "Color de fondo del video"
+    },
+    {
+      "key": "TITLE_TEXT",
+      "type": "text",
+      "defaultValue": "Título Principal",
+      "description": "Texto del título principal"
+    },
+    {
+      "key": "SUBTITLE_TEXT",
+      "type": "text",
+      "defaultValue": "Subtítulo",
+      "description": "Texto del subtítulo"
+    },
+    {
+      "key": "TEXT_COLOR",
+      "type": "color",
+      "defaultValue": "#FFFFFF",
+      "description": "Color del texto"
+    }
+  ],
+  "timeline": {
+    "tracks": [
+      {
+        "id": 0,
+        "name": "video Track",
+        "type": "video",
+        "clips": [
+          {
+            "id": "03361767-e51d-48bf-83e1-73d955cacb8d",
+            "name": "Phone Body",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{PHONE_BODY_ASSET}}",
+            "scale": 1,
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          },
+          {
+            "id": "118f2892-c547-4ba8-a286-87ccc9117c3c",
+            "name": "Phone Screen",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{SCREEN_CONTENT}}",
+            "scale": 0.8,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "effects": [
+              {
+                "type": "dropShadow",
+                "strength": 1
+              },
+              {
+                "type": "glow",
+                "strength": 1
+              }
+            ]
+          },
+          {
+            "id": "a26955f9-f632-4648-8a26-989b0b29248e",
+            "name": "Phone Glass",
+            "type": "video",
+            "start": 0,
+            "duration": 10,
+            "src": "{{PHONE_GLASS_ASSET}}",
+            "scale": 1,
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "background Track",
+        "type": "background",
+        "clips": [
+          {
+            "id": "4ff07b96-db6c-487d-848e-e99cd7de6223",
+            "name": "Background",
+            "type": "background",
+            "start": 0,
+            "duration": 10,
+            "color": "{{BACKGROUND_COLOR}}",
+            "position": {
+              "x": 960,
+              "y": 540
+            }
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "text Track",
+        "type": "text",
+        "clips": [
+          {
+            "id": "2588879c-67b0-479d-9559-8e81c675302d",
+            "name": "Title Text",
+            "type": "text",
+            "start": 1,
+            "duration": 3,
+            "text": "{{TITLE_TEXT}}",
+            "fontSize": 48,
+            "color": "{{TEXT_COLOR}}",
+            "fontFamily": "Arial",
+            "position": {
+              "x": 960,
+              "y": 200
+            },
+            "animation": {
+              "type": "fadeIn",
+              "duration": 1,
+              "easing": "ease-in-out"
+            }
+          },
+          {
+            "id": "c403b3ca-27ec-4ead-9d6e-d7d931f1f695",
+            "name": "Subtitle Text",
+            "type": "text",
+            "start": 2,
+            "duration": 4,
+            "text": "{{SUBTITLE_TEXT}}",
+            "fontSize": 32,
+            "color": "{{TEXT_COLOR}}",
+            "fontFamily": "Arial",
+            "position": {
+              "x": 960,
+              "y": 280
+            },
+            "animation": {
+              "type": "fadeIn",
+              "duration": 1,
+              "easing": "ease-in-out"
+            }
+          }
+        ]
+      }
+    ],
+    "duration": 10,
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "background": {
+      "type": "color",
+      "color": "#000000"
+    }
+  },
+  "assets": [
+    {
+      "id": "1",
+      "name": "Mockup Variant 1",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Mockup Variant 10",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/10/Screen.mov"
+      }
+    },
+    {
+      "id": "11",
+      "name": "Mockup Variant 11",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/11/Screen.mov"
+      }
+    },
+    {
+      "id": "12",
+      "name": "Mockup Variant 12",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/12/Screen.mov"
+      }
+    },
+    {
+      "id": "13",
+      "name": "Mockup Variant 13",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/13/Screen.mov"
+      }
+    },
+    {
+      "id": "14",
+      "name": "Mockup Variant 14",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/14/Screen.mov"
+      }
+    },
+    {
+      "id": "15",
+      "name": "Mockup Variant 15",
+      "files": {
+        "body 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 1.mov",
+        "body 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Body 2.mov",
+        "glass 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 1.mov",
+        "glass 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Glass 2.mov",
+        "screen 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 1.mov",
+        "screen 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/15/Screen 2.mov"
+      }
+    },
+    {
+      "id": "16",
+      "name": "Mockup Variant 16",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/16/Screen.mov"
+      }
+    },
+    {
+      "id": "17",
+      "name": "Mockup Variant 17",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/17/Screen.mov"
+      }
+    },
+    {
+      "id": "18",
+      "name": "Mockup Variant 18",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/18/Screen.mov"
+      }
+    },
+    {
+      "id": "19",
+      "name": "Mockup Variant 19",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/19/Screen.mov"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Mockup Variant 2",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/2/Screen.mov"
+      }
+    },
+    {
+      "id": "20",
+      "name": "Mockup Variant 20",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/20/Screen.mov"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Mockup Variant 3",
+      "files": {
+        "body 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 1.mov",
+        "body 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Body 2.mov",
+        "glass 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 1.mov",
+        "glass 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Glass 2.mov",
+        "screen 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 1.mov",
+        "screen 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/3/Screen 2.mov"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Mockup Variant 4",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/4/Screen.mov"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Mockup Variant 5",
+      "files": {
+        "body 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 1.mov",
+        "body 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Body 2.mov",
+        "glass 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 1.mov",
+        "glass 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Glass 2.mov",
+        "screen 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 1.mov",
+        "screen 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/5/Screen 2.mov"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Mockup Variant 6",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/6/Screen.mov"
+      }
+    },
+    {
+      "id": "7",
+      "name": "Mockup Variant 7",
+      "files": {
+        "body": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Body.mov",
+        "glass": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Glass.mov",
+        "screen": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/7/Screen.mov"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Mockup Variant 8",
+      "files": {
+        "body 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 1.mov",
+        "body 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Body 2.mov",
+        "glass 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 1.mov",
+        "glass 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Glass 2.mov",
+        "screen 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 1.mov",
+        "screen 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/8/Screen 2.mov"
+      }
+    },
+    {
+      "id": "9",
+      "name": "Mockup Variant 9",
+      "files": {
+        "body 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 1.mov",
+        "body 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Body 2.mov",
+        "glass 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 1.mov",
+        "glass 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Glass 2.mov",
+        "screen 1": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 1.mov",
+        "screen 2": "/Users/miguelsuredasuau/ffmpeg/assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/9/Screen 2.mov"
+      }
+    }
+  ]
+}

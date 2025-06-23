@@ -1,0 +1,128 @@
+{
+  "timeline": {
+    "tracks": [
+      {
+        "clips": [
+          {
+            "type": "video",
+            "src": "https://example.com/intro-video.mp4",
+            "start": 0,
+            "duration": 5,
+            "position": { "x": 0, "y": 0 },
+            "scale": 1,
+            "volume": 80,
+            "trim": { "start": 2, "end": 7 },
+            "zIndex": 0
+          },
+          {
+            "type": "image",
+            "src": "https://example.com/logo.png",
+            "start": 5,
+            "duration": 10,
+            "position": { "x": "10%", "y": "10%" },
+            "scale": 0.5,
+            "opacity": 90,
+            "zIndex": 1
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "type": "text",
+            "content": "{{company_name}}",
+            "start": 1,
+            "duration": 4,
+            "position": { "x": "50%", "y": "80%" },
+            "fontSize": 36,
+            "color": "#FFFFFF",
+            "font": "Arial",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "shadow": {
+              "color": "#000000",
+              "offsetX": 2,
+              "offsetY": 2,
+              "blur": 4
+            },
+            "zIndex": 2,
+            "animations": [
+              {
+                "type": "slide",
+                "direction": "up",
+                "duration": 1
+              }
+            ]
+          },
+          {
+            "type": "html",
+            "html": "<div class='countdown'><span id='timer'>10</span></div>",
+            "css": ".countdown { display: flex; justify-content: center; align-items: center; height: 100%; font-size: 72px; color: #FF0000; font-weight: bold; }",
+            "start": 10,
+            "duration": 5,
+            "width": 1920,
+            "height": 1080,
+            "transparent": true,
+            "zIndex": 3
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "type": "audio",
+            "src": "https://example.com/background-music.mp3",
+            "start": 0,
+            "duration": 15,
+            "volume": 30,
+            "fadeIn": 2,
+            "fadeOut": 2,
+            "loop": false
+          }
+        ]
+      }
+    ],
+    "soundtrack": {
+      "src": "https://example.com/main-soundtrack.mp3",
+      "start": 0,
+      "volume": 40,
+      "fadeIn": 1,
+      "fadeOut": 3
+    },
+    "background": {
+      "color": "#1a1a1a"
+    },
+    "transitions": [
+      {
+        "type": "fade",
+        "duration": 1,
+        "easing": "ease-in-out"
+      }
+    ],
+    "filters": [
+      {
+        "type": "brightness",
+        "intensity": 60
+      },
+      {
+        "type": "contrast",
+        "intensity": 70
+      }
+    ]
+  },
+  "output": {
+    "format": "mp4",
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "fps": 30,
+    "bitrate": "4M",
+    "quality": "high",
+    "codec": "libx264"
+  },
+  "mergeFields": {
+    "company_name": "My Company"
+  },
+  "cache": true
+} 

@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  # API Principal
+  api:
+    build: .
+    container_name: json2video-api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - WORKER_CONCURRENCY=2
+      - DEV_API_KEY=dev-key-12345
+      - RATE_LIMIT_MAX=1000
+    volumes:
+      - ./temp:/app/temp
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./data:/app/data
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - json2video-network
+
+  # Worker de procesamiento
+  worker:
+    build: .
+    container_name: json2video-worker
+    command: npm run worker
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - WORKER_CONCURRENCY=2
+      - WORKER_NAME=docker-worker-1
+    volumes:
+      - ./temp:/app/temp
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./data:/app/data
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - json2video-network
+
+  # Redis para BullMQ
+  redis:
+    image: redis:7-alpine
+    container_name: json2video-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - json2video-network
+
+  # ImgProxy (opcional)
+  imgproxy:
+    image: darthsim/imgproxy:latest
+    container_name: json2video-imgproxy
+    ports:
+      - "8080:8080"
+    environment:
+      - IMGPROXY_BIND=0.0.0.0:8080
+      - IMGPROXY_USE_ETAG=true
+      - IMGPROXY_TTL=31536000
+      - IMGPROXY_MAX_SRC_RESOLUTION=50
+      - IMGPROXY_QUALITY=80
+      - IMGPROXY_ENABLE_WEBP_DETECTION=true
+    restart: unless-stopped
+    networks:
+      - json2video-network
+
+  # Dashboard de monitoreo (opcional)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: json2video-redis-commander
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - json2video-network
+
+volumes:
+  redis_data:
+
+networks:
+  json2video-network:
+    driver: bridge 

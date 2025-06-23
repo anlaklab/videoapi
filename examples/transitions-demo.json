@@ -1,0 +1,169 @@
+{
+  "timeline": {
+    "background": {
+      "color": "#1a1a2e"
+    },
+    "tracks": [
+      {
+        "id": "main-video",
+        "clips": [
+          {
+            "type": "video",
+            "src": "/Users/miguelsuredasuau/ffmpeg/assets/unsplash/videos/background-gradient.mp4",
+            "start": 0,
+            "duration": 8,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "type": "video", 
+            "src": "/Users/miguelsuredasuau/ffmpeg/assets/unsplash/videos/particle-wave.mp4",
+            "start": 6,
+            "duration": 8,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "type": "crossfade",
+            "start": 6,
+            "duration": 2,
+            "easing": "ease-in-out"
+          }
+        ]
+      },
+      {
+        "id": "text-overlay",
+        "clips": [
+          {
+            "type": "text",
+            "text": "🎬 TRANSICIONES AVANZADAS",
+            "start": 1,
+            "duration": 3,
+            "position": {
+              "x": 960,
+              "y": 200
+            },
+            "style": {
+              "fontSize": 48,
+              "color": "#FFFFFF"
+            }
+          },
+          {
+            "type": "text",
+            "text": "✨ Efectos Profesionales",
+            "start": 2.5,
+            "duration": 3,
+            "position": {
+              "x": 960,
+              "y": 300
+            },
+            "style": {
+              "fontSize": 32,
+              "color": "#FFD700"
+            }
+          },
+          {
+            "type": "text",
+            "text": "🚀 Crossfade Suave",
+            "start": 7,
+            "duration": 4,
+            "position": {
+              "x": 960,
+              "y": 400
+            },
+            "style": {
+              "fontSize": 36,
+              "color": "#FF6B6B"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "type": "fade",
+            "start": 1,
+            "duration": 0.5,
+            "easing": "ease-in"
+          },
+          {
+            "type": "slide",
+            "start": 2.5,
+            "duration": 0.8,
+            "direction": "left",
+            "easing": "ease-out"
+          },
+          {
+            "type": "zoom",
+            "start": 7,
+            "duration": 1,
+            "direction": "in",
+            "easing": "bounce"
+          }
+        ]
+      },
+      {
+        "id": "image-showcase",
+        "clips": [
+          {
+            "type": "image",
+            "src": "/Users/miguelsuredasuau/ffmpeg/assets/unsplash/images/mountain-landscape.jpg",
+            "start": 10,
+            "duration": 3,
+            "position": {
+              "x": 100,
+              "y": 100
+            },
+            "width": 600,
+            "height": 400
+          },
+          {
+            "type": "image",
+            "src": "/Users/miguelsuredasuau/ffmpeg/assets/unsplash/images/ocean-waves.jpg",
+            "start": 12,
+            "duration": 3,
+            "position": {
+              "x": 100,
+              "y": 100
+            },
+            "width": 600,
+            "height": 400
+          }
+        ],
+        "transitions": [
+          {
+            "type": "wipe",
+            "start": 12,
+            "duration": 1.5,
+            "direction": "right"
+          }
+        ]
+      }
+    ],
+    "transitions": [
+      {
+        "type": "dissolve",
+        "start": 0,
+        "duration": 1
+      },
+      {
+        "type": "fade",
+        "start": 13,
+        "duration": 1
+      }
+    ]
+  },
+  "output": {
+    "format": "mp4",
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "fps": 30,
+    "quality": "high"
+  }
+} 

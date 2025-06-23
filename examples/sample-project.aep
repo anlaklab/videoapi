@@ -1,0 +1,47 @@
+# Archivo simulado de After Effects (.aep)
+# En una implementación real, este sería un archivo binario complejo
+# que requeriría ExtendScript o CEP para ser parseado
+
+PROJECT_NAME: "Sample Marketing Video"
+AE_VERSION: "2024"
+RESOLUTION: 1920x1080
+FRAME_RATE: 30
+DURATION: 10
+
+COMPOSITION: "Main Comp"
+  LAYER: "Title Text"
+    TYPE: text
+    CONTENT: "{{COMPANY_NAME}}"
+    POSITION: 960, 400
+    FONT_SIZE: 72
+    COLOR: #FFFFFF
+    EXPRESSION: Dynamic Text Box
+  
+  LAYER: "Subtitle"
+    TYPE: text
+    CONTENT: "{{TAGLINE}}"
+    POSITION: 960, 500
+    FONT_SIZE: 32
+    COLOR: #FFD700
+    EXPRESSION: Fade In/Out
+  
+  LAYER: "Logo"
+    TYPE: image
+    SOURCE: "{{LOGO_URL}}"
+    POSITION: 100, 100
+    SCALE: 50%
+    EXPRESSION: Sine Wave Motion
+  
+  LAYER: "Background"
+    TYPE: solid
+    COLOR: "{{BG_COLOR}}"
+    POSITION: 0, 0
+    SCALE: 100%
+
+EFFECTS:
+  - Gaussian Blur
+  - Color Balance
+  - Brightness & Contrast
+
+# Este archivo simula la estructura de un proyecto de After Effects
+# con capas, expresiones y efectos que pueden ser convertidos a nuestro formato JSON 

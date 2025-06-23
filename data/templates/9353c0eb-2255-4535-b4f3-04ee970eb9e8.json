@@ -1,0 +1,47 @@
+{
+  "id": "9353c0eb-2255-4535-b4f3-04ee970eb9e8",
+  "name": "Template Simple de Prueba",
+  "description": "Template simple para testing",
+  "timeline": {
+    "tracks": [
+      {
+        "clips": [
+          {
+            "type": "text",
+            "text": "{{TITULO}}",
+            "start": 0,
+            "duration": 5,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "fontSize": 48,
+            "color": "#FFFFFF"
+          }
+        ]
+      }
+    ],
+    "background": {
+      "color": "{{COLOR_FONDO}}"
+    }
+  },
+  "defaultOutput": {},
+  "mergeFields": {
+    "TITULO": {
+      "type": "text",
+      "description": "Título del video",
+      "required": true
+    },
+    "COLOR_FONDO": {
+      "type": "text",
+      "description": "Color de fondo",
+      "required": false,
+      "default": "#000000"
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-06-23T07:41:50.953Z",
+    "updatedAt": "2025-06-23T07:41:50.953Z",
+    "version": "1.0.0"
+  }
+}

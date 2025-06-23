@@ -1,0 +1,145 @@
+{
+  "id": "cdea0e91-07c2-4dd3-8ee5-70c8ad674881",
+  "name": "Proyecto de Prueba",
+  "description": "Template generado desde d5d324a7-d9bc-4bf0-bea2-8158890bd43d-sample-project.aep",
+  "timeline": {
+    "tracks": [
+      {
+        "id": "track_title_text",
+        "clips": [
+          {
+            "type": "text",
+            "start": 0,
+            "duration": 5,
+            "position": {
+              "x": 960,
+              "y": 540
+            },
+            "text": "{{TITLE}}",
+            "style": {
+              "fontSize": 48,
+              "color": "#FFFFFF",
+              "fontFamily": "Arial",
+              "fontWeight": "normal",
+              "fontStyle": "normal",
+              "textAlign": "center"
+            },
+            "animations": [
+              {
+                "type": "resize",
+                "property": "scale",
+                "trigger": "text-change",
+                "easing": "ease-out",
+                "duration": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "track_background",
+        "clips": [
+          {
+            "type": "text",
+            "start": 0,
+            "duration": 10,
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "text": "",
+            "style": {
+              "backgroundColor": "{{BG_COLOR}}"
+            },
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "track_logo",
+        "clips": [
+          {
+            "type": "image",
+            "start": 1,
+            "duration": 8,
+            "position": {
+              "x": 100,
+              "y": 100
+            },
+            "src": "{{LOGO_URL}}",
+            "animations": [
+              {
+                "type": "oscillate",
+                "property": "position",
+                "amplitude": 50,
+                "frequency": 1,
+                "waveform": "sine"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "background": {
+      "color": "#000000"
+    },
+    "transitions": [
+      {
+        "type": "crossfade",
+        "start": 0,
+        "duration": 5,
+        "easing": "ease-in-out"
+      },
+      {
+        "type": "crossfade",
+        "start": 1,
+        "duration": 9,
+        "easing": "ease-in-out"
+      }
+    ],
+    "filters": []
+  },
+  "defaultOutput": {
+    "format": "mp4",
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "fps": 30,
+    "quality": "high"
+  },
+  "mergeFields": {
+    "TITLE": {
+      "type": "text",
+      "description": "Texto para TITLE",
+      "required": true,
+      "maxLength": 100
+    },
+    "BG_COLOR": {
+      "type": "text",
+      "description": "Color para BG_COLOR",
+      "required": false,
+      "default": "#FFFFFF",
+      "validation": "color"
+    },
+    "LOGO_URL": {
+      "type": "text",
+      "description": "URL para LOGO_URL",
+      "required": true,
+      "validation": "url"
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-06-23T07:06:16.014Z",
+    "updatedAt": "2025-06-23T07:06:16.014Z",
+    "version": "1.0.0",
+    "originalFile": "d5d324a7-d9bc-4bf0-bea2-8158890bd43d-sample-project.aep",
+    "aeVersion": "2024",
+    "importedAt": "2025-06-23T07:06:16.014Z",
+    "compositions": 1,
+    "layers": 3,
+    "expressions": 3,
+    "clientId": "dev-client",
+    "uploadedBy": "Development Key"
+  }
+}
