@@ -4,7 +4,7 @@
   "description": "API Modular de Renderización de Video - Arquitectura completa con colas, workers y Firebase",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "FFMPEG_PATH=/opt/homebrew/bin/ffmpeg node src/server.js",
     "dev": "nodemon src/server.js",
     "worker": "node src/worker.js",
     "dev:worker": "nodemon src/worker.js",
@@ -28,6 +28,8 @@
   "author": "JSON2VIDEO API Team",
   "license": "MIT",
   "dependencies": {
+    "ae-to-json": "^1.1.2",
+    "after-effects": "^0.4.15",
     "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "bull-board": "^2.1.3",

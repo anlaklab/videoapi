@@ -40,7 +40,7 @@ import AdvancedTimelineControls from './Timeline/AdvancedTimelineControls';
 import renderService from '../services/renderService';
 import storageService from '../services/storageService';
 import assetManager from '../services/AssetManager';
-import { allSampleAssets } from '../data/sampleAssets';
+import projectManager from '../services/ProjectManager';
 
 // Styled Components
 const EditorContainer = styled.div`
@@ -559,28 +559,28 @@ const CloudVideoEditor = () => {
   }, [timeline, tracks, project.settings, player]);
 
   /**
-   * Asset Management with Sample Assets Fallback
+   * Asset Management with Firestore Integration
    */
   const loadAssets = useCallback(async () => {
     setAssetsLoading(true);
     try {
-      // Try to load assets from Firebase first
-      const assetsFromFirebase = await assetManager.getAssets();
+      console.log('📦 Loading assets from Firestore...');
       
-      // Combine Firebase assets with sample assets
-      const combinedAssets = [...allSampleAssets, ...assetsFromFirebase];
+      // Load all assets from AssetManager (which handles Firestore + sample assets)
+      const allAssets = await assetManager.getAllAssets();
       
-      setAssets(combinedAssets);
+      setAssets(allAssets);
       console.log('✅ Loaded assets:', {
-        sample: allSampleAssets.length,
-        firebase: assetsFromFirebase.length,
-        total: combinedAssets.length
+        total: allAssets.length,
+        types: allAssets.reduce((acc, asset) => {
+          acc[asset.type] = (acc[asset.type] || 0) + 1;
+          return acc;
+        }, {})
       });
     } catch (error) {
-      console.warn('⚠️ Firebase assets failed, using sample assets only:', error);
-      // Fallback to sample assets only
-      setAssets(allSampleAssets);
-      console.log('✅ Loaded sample assets only:', allSampleAssets.length);
+      console.error('❌ Failed to load assets:', error);
+      // AssetManager handles fallbacks internally, so we should still get some assets
+      setAssets([]);
     } finally {
       setAssetsLoading(false);
     }
