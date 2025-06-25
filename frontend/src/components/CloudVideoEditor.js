@@ -35,12 +35,14 @@ import JsonViewer from './JsonViewer';
 import UploadProgressManager from './UploadProgress/UploadProgressManager';
 import useEditorStore from '../store/useEditorStore';
 import AdvancedTimelineControls from './Timeline/AdvancedTimelineControls';
+import AuthModal from './Auth/AuthModal';
 
 // Services
 import renderService from '../services/renderService';
 import storageService from '../services/storageService';
 import assetManager from '../services/AssetManager';
 import projectManager from '../services/ProjectManager';
+import authService from '../services/AuthService';
 
 // Styled Components
 const EditorContainer = styled.div`
@@ -231,6 +233,11 @@ const CloudVideoEditor = () => {
     },
     createdAt: new Date().toISOString()
   });
+
+  // Authentication state
+  const [user, setUser] = useState(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
 
   const [assets, setAssets] = useState([]);
   const [selectedAssets, setSelectedAssets] = useState([]);
@@ -834,6 +841,41 @@ const CloudVideoEditor = () => {
     loadAssets();
   }, [loadAssets]);
 
+  // Authentication effect
+  useEffect(() => {
+    const unsubscribe = authService.onAuthStateChange((user) => {
+      setUser(user);
+      setAuthLoading(false);
+      
+      if (user) {
+        console.log('✅ User authenticated, loading user assets');
+        // Reload assets for authenticated user
+        loadAssets();
+      } else {
+        console.log('👋 User not authenticated, showing public assets only');
+      }
+    });
+
+    return unsubscribe;
+  }, [loadAssets]);
+
+  // Authentication handlers
+  const handleSignOut = useCallback(async () => {
+    try {
+      await authService.signOutUser();
+      console.log('✅ User signed out successfully');
+    } catch (error) {
+      console.error('❌ Sign out failed:', error);
+    }
+  }, []);
+
+  const handleAuthSuccess = useCallback((user) => {
+    console.log('✅ Authentication successful:', user.email);
+    setIsAuthModalOpen(false);
+    // Reload assets for the authenticated user
+    loadAssets();
+  }, [loadAssets]);
+
   // Helper functions
   const getTrackTypeFromFile = (file) => {
     if (file.type.startsWith('video/')) return 'video';
@@ -878,6 +920,24 @@ const CloudVideoEditor = () => {
             <Zap size={16} />
             {renderProgress ? `${renderProgress.stage} ${renderProgress.progress}%` : 'Render'}
           </ActionButton>
+
+          {/* Authentication UI */}
+          {authLoading ? (
+            <span style={{ fontSize: '0.8rem', color: '#666' }}>Loading...</span>
+          ) : user ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.8rem', color: '#999' }}>
+                {user.displayName || user.email}
+              </span>
+              <ActionButton onClick={handleSignOut}>
+                Sign Out
+              </ActionButton>
+            </div>
+          ) : (
+            <ActionButton onClick={() => setIsAuthModalOpen(true)}>
+              Sign In
+            </ActionButton>
+          )}
         </div>
       </HeaderBar>
 
@@ -992,6 +1052,13 @@ const CloudVideoEditor = () => {
           onToggleCollapse={() => setJsonPanelCollapsed(!jsonPanelCollapsed)}
         />
       </BottomPanel>
+
+      {/* Authentication Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSuccess={handleAuthSuccess}
+      />
     </EditorContainer>
   );
 };
