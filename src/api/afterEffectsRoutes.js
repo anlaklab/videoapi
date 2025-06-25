@@ -1,38 +1,11 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const { v4: uuidv4 } = require('uuid');
 const asyncHandler = require('../middleware/asyncHandler');
+const { processAEPUpload, uploadSingleAEP, validateAEPFile } = require('../middleware/afterEffectsMiddleware');
 const AfterEffectsProcessor = require('../services/afterEffectsProcessor');
 const TemplateManager = require('../services/templateManager');
 const logger = require('../utils/logger');
 
 const router = express.Router();
-
-// Configurar multer para subida de archivos AEP
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './temp/aep-uploads/');
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = `${uuidv4()}-${file.originalname}`;
-    cb(null, uniqueName);
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 100 * 1024 * 1024 // 100MB
-  },
-  fileFilter: function (req, file, cb) {
-    const ext = path.extname(file.originalname).toLowerCase();
-    if (ext !== '.aep') {
-      return cb(new Error('Solo se permiten archivos .aep'));
-    }
-    cb(null, true);
-  }
-});
 
 /**
  * @swagger

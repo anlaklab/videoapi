@@ -1,0 +1,33 @@
+{
+  "id": "zoom-in",
+  "name": "Zoom In",
+  "category": "transform",
+  "description": "Smooth zoom in animation with configurable scale and easing",
+  "icon": "ZoomIn",
+  "thumbnail": "thumbnail.jpg",
+  "version": "1.0.0",
+  "author": {
+    "name": "JSON2VIDEO Team",
+    "email": "team@json2video.com"
+  },
+  "compatibility": {
+    "ffmpeg": ">=4.3",
+    "web": true,
+    "minVersion": "4.3"
+  },
+  "ffmpeg": {
+    "filter": "scale=w='iw*min(1+(t/duration)*0.2,1.2)':h='ih*min(1+(t/duration)*0.2,1.2)':eval=frame",
+    "parameters": {
+      "duration": 2,
+      "fps": 30,
+      "scale": 1.2,
+      "centerX": 0.5,
+      "centerY": 0.5,
+      "easing": "easeOut"
+    }
+  },
+  "ui": {
+    "gradient": "linear-gradient(45deg, #a8edea, #fed6e3)",
+    "previewDuration": 1.5
+  }
+} 

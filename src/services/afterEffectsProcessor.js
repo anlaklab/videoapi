@@ -7,14 +7,16 @@ const logger = require('../utils/logger');
 const AELayerProcessor = require('./components/aeLayerProcessor');
 const AEAssetScanner = require('./components/aeAssetScanner');
 const AETimelineBuilder = require('./components/aeTimelineBuilder');
+const AERealParser = require('./components/aeRealParser');
 
 /**
  * AfterEffectsProcessor - Convierte archivos .aep a templates JSON
  * 
- * Este procesador está diseñado para extraer información de proyectos de After Effects
- * y convertirlos a nuestro formato de timeline JSON compatible con el videoRenderer.
+ * ACTUALIZADO: Ahora usa análisis REAL de archivos AEP en lugar de simulación
+ * Basado en las mejores prácticas de ae-to-json de Experience-Monks
  * 
  * Usa una arquitectura modular con componentes especializados:
+ * - AERealParser: Análisis real de archivos .aep usando ExtendScript
  * - AELayerProcessor: Procesa capas individuales
  * - AEAssetScanner: Escanea y cataloga assets
  * - AETimelineBuilder: Construye timelines optimizados
@@ -25,6 +27,7 @@ class AfterEffectsProcessor {
     this.outputDirectory = path.resolve('data/templates');
     
     // Inicializar componentes modulares
+    this.realParser = new AERealParser();
     this.layerProcessor = new AELayerProcessor();
     this.assetScanner = new AEAssetScanner();
     this.timelineBuilder = new AETimelineBuilder();
@@ -89,6 +92,12 @@ class AfterEffectsProcessor {
       if (stats.size < 1024) {
         errors.push('Archivo parece estar vacío o corrupto');
       }
+
+      // Verificar que es un archivo AEP válido usando el parser real
+      const isValid = await this.realParser.isValidAEPFile(aepFilePath);
+      if (!isValid) {
+        errors.push('El archivo no parece ser un proyecto válido de After Effects');
+      }
       
     } catch (error) {
       errors.push(`Error validando archivo: ${error.message}`);
@@ -101,34 +110,68 @@ class AfterEffectsProcessor {
   }
 
   /**
-   * Obtiene información básica de un archivo .aep
+   * Obtiene información básica de un archivo .aep usando análisis real
    */
   async getAEPInfo(aepFilePath) {
     const stats = await fs.stat(aepFilePath);
     const fileName = path.basename(aepFilePath);
     
-    return {
-      fileName,
-      size: stats.size,
-      created: stats.birthtime,
-      modified: stats.mtime,
-      extension: path.extname(aepFilePath),
-      // Para un análisis más profundo, necesitaríamos herramientas específicas de AE
-      version: 'Unknown',
-      totalLayers: 6, // Estimado
-      totalExpressions: 3, // Estimado
-      supportedExpressions: 3 // Estimado
-    };
+    try {
+      // Usar el parser real para obtener información básica
+      const correlationId = logger.generateCorrelationId();
+              const realAnalysis = await this.realParser.parseAEP(aepFilePath, correlationId);
+      
+      return {
+        fileName,
+        size: stats.size,
+        created: stats.birthtime,
+        modified: stats.mtime,
+        extension: path.extname(aepFilePath),
+        // Información real extraída del archivo
+        version: realAnalysis.metadata?.aeVersion || 'Unknown',
+        totalLayers: realAnalysis.layers?.length || 0,
+        totalExpressions: realAnalysis.expressions?.length || 0,
+        supportedExpressions: realAnalysis.expressions?.filter(e => e.enabled).length || 0,
+        compositions: realAnalysis.compositions?.length || 0,
+        duration: realAnalysis.duration || 0,
+        frameRate: realAnalysis.frameRate || 30,
+        resolution: {
+          width: realAnalysis.width || 1920,
+          height: realAnalysis.height || 1080
+        },
+        method: realAnalysis.method
+      };
+      
+    } catch (error) {
+      logger.warn('No se pudo obtener información detallada del AEP, usando información básica', {
+        error: error.message,
+        file: fileName
+      });
+      
+      // Fallback a información básica
+      return {
+        fileName,
+        size: stats.size,
+        created: stats.birthtime,
+        modified: stats.mtime,
+        extension: path.extname(aepFilePath),
+        version: 'Unknown',
+        totalLayers: 0,
+        totalExpressions: 0,
+        supportedExpressions: 0
+      };
+    }
   }
 
   /**
-   * Convierte un archivo .aep a template JSON
+   * Convierte un archivo .aep a template JSON usando análisis real
    */
   async convertAEPToTemplate(aepFilePath, templateName = null, templateDescription = null) {
     const startTime = Date.now();
+    const correlationId = logger.generateCorrelationId();
     
     try {
-      logger.info(`🎬 Iniciando conversión modular de After Effects: ${aepFilePath}`);
+      logger.info(`🎬 Iniciando conversión REAL de After Effects: ${aepFilePath}`, { correlationId });
       
       // Validar que el archivo existe
       if (!await fs.pathExists(aepFilePath)) {
@@ -140,23 +183,124 @@ class AfterEffectsProcessor {
       const finalTemplateName = templateName || this.generateTemplateName(aepFilePath);
       const finalDescription = templateDescription || `Template generado desde After Effects: ${path.basename(aepFilePath)}`;
       
-      // Analizar el proyecto de After Effects
-      logger.info(`🔍 Analizando proyecto AE...`);
-      const projectInfo = await this.analyzeAepProject(aepFilePath);
+      // ANÁLISIS REAL del proyecto de After Effects
+      logger.info(`🔍 Ejecutando análisis REAL del proyecto AE...`, { correlationId });
+      const realProjectInfo = await this.realParser.parseAEP(aepFilePath, correlationId);
+      
+      logger.info(`✅ Análisis real completado`, {
+        correlationId,
+        method: realProjectInfo.method,
+        compositions: realProjectInfo.compositions?.length || 0,
+        layers: realProjectInfo.layers?.length || 0,
+        expressions: realProjectInfo.expressions?.length || 0
+      });
       
       // Validar proyecto
-      logger.info(`✅ Validando proyecto...`);
-      const validation = await this.validateProject(projectInfo);
+      logger.info(`✅ Validando proyecto...`, { correlationId });
+      const validation = await this.validateRealProject(realProjectInfo);
       if (!validation.isValid) {
-        logger.warn(`⚠️ Proyecto tiene errores de validación:`, validation.errors);
+        logger.warn(`⚠️ Proyecto tiene errores de validación:`, { 
+          errors: validation.errors,
+          correlationId 
+        });
       }
       
-      // Generar el template JSON
-      logger.info(`🏗️ Generando template JSON...`);
-      const template = await this.generateTemplateFromProject(projectInfo, templateId, finalTemplateName, finalDescription);
+      // Construir template desde datos reales
+      logger.info('🏗️ Construyendo template desde datos reales de AE', { correlationId });
       
+      // Seleccionar composición principal
+      const mainComposition = this.selectMainComposition(realProjectInfo.compositions);
+      if (!mainComposition) {
+        throw new Error('No se encontró una composición válida en el proyecto');
+      }
+
+      logger.info(`📐 Composición principal seleccionada: ${mainComposition.name}`, {
+        correlationId,
+        duration: mainComposition.duration,
+        layers: mainComposition.layers?.length || 0
+      });
+
+      // Obtener capas reales asociadas a esta composición
+      const realLayers = realProjectInfo.layers?.filter(layer => 
+        layer.composition === mainComposition.name || !layer.composition
+      ) || [];
+
+      logger.info(`🎭 Capas reales encontradas: ${realLayers.length}`, { correlationId });
+
+      // Preparar composición con capas reales para el TimelineBuilder
+      const compositionWithRealLayers = {
+        ...mainComposition,
+        realLayers: realLayers // Agregar las capas reales extraídas
+      };
+
+      // Construir timeline usando el AETimelineBuilder con datos reales
+      const timeline = this.timelineBuilder.buildTimelineFromComposition(compositionWithRealLayers);
+      
+      // Detectar merge fields desde expresiones y texto reales
+      const mergeFields = this.extractRealMergeFields(realProjectInfo);
+      
+      // Crear template completo
+      const template = {
+        templateId,
+        name: finalTemplateName,
+        description: finalDescription,
+        version: '1.0.0',
+        createdAt: new Date().toISOString(),
+        
+        // Timeline construido desde datos reales
+        timeline: {
+          ...timeline,
+          duration: mainComposition.duration,
+          frameRate: mainComposition.frameRate,
+          resolution: {
+            width: mainComposition.width,
+            height: mainComposition.height
+          },
+          background: {
+            color: this.convertAEColorToHex(mainComposition.bgColor)
+          }
+        },
+        
+        // Configuración de salida basada en el proyecto real
+        defaultOutput: {
+          format: 'mp4',
+          resolution: {
+            width: mainComposition.width,
+            height: mainComposition.height
+          },
+          fps: mainComposition.frameRate,
+          quality: 'high'
+        },
+        
+        // Merge fields extraídos de expresiones y texto reales
+        mergeFields,
+        
+        // Metadata del análisis real
+        metadata: {
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          version: '1.0.0',
+          originalFile: path.basename(realProjectInfo.name || 'unknown.aep'),
+          aeVersion: realProjectInfo.metadata?.aeVersion,
+          buildNumber: realProjectInfo.metadata?.buildNumber,
+          analysisMethod: realProjectInfo.method,
+          importedAt: new Date().toISOString(),
+          compositions: realProjectInfo.compositions?.length || 0,
+          layers: realProjectInfo.layers?.length || 0,
+          expressions: realProjectInfo.expressions?.length || 0,
+          realAnalysis: true // Marca que este template fue creado con análisis real
+        }
+      };
+
+      logger.info('✅ Template construido desde análisis real', {
+        correlationId,
+        tracks: timeline.tracks?.length || 0,
+        mergeFields: Object.keys(mergeFields).length,
+        expressions: realProjectInfo.expressions?.length || 0
+      });
+
       // Optimizar template
-      logger.info(`⚡ Optimizando template...`);
+      logger.info(`⚡ Optimizando template...`, { correlationId });
       const optimizedTemplate = this.optimizeTemplate(template);
       
       // Guardar el template
@@ -166,420 +310,180 @@ class AfterEffectsProcessor {
       
       // Generar reporte
       const processingTime = Date.now() - startTime;
-      const report = this.generateProcessingReport(projectInfo, optimizedTemplate);
+      const report = this.generateProcessingReport(realProjectInfo, optimizedTemplate);
       report.processing.duration = processingTime;
       
-      logger.info(`✅ Template creado exitosamente: ${templateId}`);
-      logger.info(`📁 Guardado en: ${outputPath}`);
-      logger.info(`⏱️ Tiempo de procesamiento: ${processingTime}ms`);
-      logger.info(`📊 Tracks: ${report.template.trackCount}, Clips: ${report.template.clipCount}`);
+      logger.info(`✅ Template creado exitosamente desde análisis REAL: ${templateId}`, { correlationId });
+      logger.info(`📁 Guardado en: ${outputPath}`, { correlationId });
+      logger.info(`⏱️ Tiempo de procesamiento: ${processingTime}ms`, { correlationId });
+      logger.info(`📊 Análisis: ${realProjectInfo.method} | Tracks: ${report.template.trackCount} | Clips: ${report.template.clipCount}`, { correlationId });
       
-      return optimizedTemplate;
+      return {
+        ...optimizedTemplate,
+        templatePath: outputPath,
+        fileSize: (await fs.stat(outputPath)).size,
+        projectInfo: {
+          ...realProjectInfo,
+          stats: report.template
+        }
+      };
       
     } catch (error) {
-      logger.error(`❌ Error en conversión modular de After Effects: ${error.message}`);
+      logger.error(`❌ Error en conversión REAL de After Effects: ${error.message}`, { 
+        correlationId,
+        stack: error.stack 
+      });
       throw error;
     }
   }
 
   /**
-   * Analiza un proyecto de After Effects para extraer información
+   * Seleccionar la composición principal del proyecto
    */
-  async analyzeAepProject(aepFilePath) {
-    logger.info(`🔍 Analizando proyecto After Effects...`);
-    
-    // Para archivos .aep reales, necesitaríamos usar herramientas como:
-    // - After Effects Scripting (ExtendScript)
-    // - Lottie exportation
-    // - Third-party tools like AEUX
-    
-    // Por ahora, vamos a simular el análisis basado en el nombre del archivo
-    // y crear una estructura que corresponda al Animated Phone Mockup Kit
-    
-    const fileName = path.basename(aepFilePath, '.aep');
-    
-    if (fileName.includes('Phone Mockup')) {
-      return this.analyzePhoneMockupProject(aepFilePath);
+  selectMainComposition(compositions) {
+    if (!compositions || !Array.isArray(compositions) || compositions.length === 0) {
+      return null;
     }
-    
-    // Análisis genérico para otros proyectos
-    return this.analyzeGenericProject(aepFilePath);
+
+    // Priorizar por duración (la más larga) y número de capas
+    return compositions.reduce((best, current) => {
+      if (!best) return current;
+      
+      const currentScore = (current.duration || 0) * (current.layers?.length || 0);
+      const bestScore = (best.duration || 0) * (best.layers?.length || 0);
+      
+      return currentScore > bestScore ? current : best;
+    });
   }
 
   /**
-   * Análisis específico para el Phone Mockup Kit
+   * Extraer merge fields reales desde expresiones y contenido de texto
    */
-  async analyzePhoneMockupProject(aepFilePath) {
-    logger.info(`📱 Detectado: Phone Mockup Kit`);
-    
-    // Verificar si tenemos los assets del mockup
-    const mockupAssetsPath = path.dirname(aepFilePath);
-    const footagePath = path.join(mockupAssetsPath, '(Footage)');
-    
-    let availableAssets = [];
-    if (await fs.pathExists(footagePath)) {
-      availableAssets = await this.scanMockupAssets(footagePath);
-    }
+  extractRealMergeFields(realProjectInfo) {
+    const mergeFields = {};
+    const foundFields = new Set();
 
-    return {
-      projectType: 'phone-mockup',
-      projectName: 'Animated Phone Mockup Kit',
-      duration: 10, // segundos
-      frameRate: 30,
-      resolution: { width: 1920, height: 1080 },
-      composition: {
-        name: 'Main Composition',
-        duration: 10,
-        layers: [
-          {
-            id: 1,
-            name: 'Phone Body',
-            type: 'AVLayer',
-            source: '{{PHONE_BODY_ASSET}}',
-            startTime: 0,
-            duration: 10,
-            position: { x: 960, y: 540 },
-            scale: { x: 100, y: 100 },
-            opacity: 100
-          },
-          {
-            id: 2,
-            name: 'Phone Screen',
-            type: 'AVLayer',
-            source: '{{SCREEN_CONTENT}}',
-            startTime: 0,
-            duration: 10,
-            position: { x: 960, y: 540 },
-            scale: { x: 80, y: 80 },
-            opacity: 100,
-            effects: ['Drop Shadow', 'Glow']
-          },
-          {
-            id: 3,
-            name: 'Phone Glass',
-            type: 'AVLayer',
-            source: '{{PHONE_GLASS_ASSET}}',
-            startTime: 0,
-            duration: 10,
-            position: { x: 960, y: 540 },
-            scale: { x: 100, y: 100 },
-            opacity: 90
-          },
-          {
-            id: 4,
-            name: 'Background',
-            type: 'SolidLayer',
-            color: '{{BACKGROUND_COLOR}}',
-            startTime: 0,
-            duration: 10,
-            position: { x: 960, y: 540 },
-            scale: { x: 100, y: 100 }
-          },
-          {
-            id: 5,
-            name: 'Title Text',
-            type: 'TextLayer',
-            text: '{{TITLE_TEXT}}',
-            startTime: 1,
-            duration: 3,
-            position: { x: 960, y: 200 },
-            fontSize: 48,
-            fontFamily: 'Arial',
-            color: '{{TEXT_COLOR}}',
-            animations: ['fadeIn', 'slideDown']
-          },
-          {
-            id: 6,
-            name: 'Subtitle Text',
-            type: 'TextLayer',
-            text: '{{SUBTITLE_TEXT}}',
-            startTime: 2,
-            duration: 4,
-            position: { x: 960, y: 280 },
-            fontSize: 32,
-            fontFamily: 'Arial',
-            color: '{{TEXT_COLOR}}',
-            animations: ['fadeIn']
+    // Extraer desde expresiones reales
+    for (const expression of realProjectInfo.expressions || []) {
+      if (expression.expression) {
+        for (const pattern of this.mergeFieldPatterns) {
+          const matches = expression.expression.matchAll(pattern);
+          for (const match of matches) {
+            foundFields.add(match[1]);
           }
-        ]
-      },
-      mergeFields: [
-        'PHONE_BODY_ASSET',
-        'PHONE_GLASS_ASSET', 
-        'SCREEN_CONTENT',
-        'BACKGROUND_COLOR',
-        'TITLE_TEXT',
-        'SUBTITLE_TEXT',
-        'TEXT_COLOR'
-      ],
-      availableAssets
-    };
-  }
-
-  /**
-   * Escanea los assets disponibles del mockup usando el componente especializado
-   */
-  async scanMockupAssets(footagePath) {
-    return await this.assetScanner.scanPhoneMockupAssets(footagePath);
-  }
-
-  /**
-   * Análisis genérico para proyectos de After Effects
-   */
-  async analyzeGenericProject(aepFilePath) {
-    const fileName = path.basename(aepFilePath, '.aep');
-    
-    return {
-      projectType: 'generic',
-      projectName: fileName,
-      duration: 10,
-      frameRate: 30,
-      resolution: { width: 1920, height: 1080 },
-      composition: {
-        name: 'Main Composition',
-        duration: 10,
-        layers: [
-          {
-            id: 1,
-            name: 'Background',
-            type: 'SolidLayer',
-            color: '{{BACKGROUND_COLOR}}',
-            startTime: 0,
-            duration: 10
-          },
-          {
-            id: 2,
-            name: 'Main Text',
-            type: 'TextLayer',
-            text: '{{MAIN_TEXT}}',
-            startTime: 0,
-            duration: 10,
-            position: { x: 960, y: 540 },
-            fontSize: 48,
-            color: '{{TEXT_COLOR}}'
-          }
-        ]
-      },
-      mergeFields: ['BACKGROUND_COLOR', 'MAIN_TEXT', 'TEXT_COLOR']
-    };
-  }
-
-  /**
-   * Genera el template JSON desde la información del proyecto
-   */
-  async generateTemplateFromProject(projectInfo, templateId, templateName, templateDescription) {
-    logger.info(`🏗️ Generando template JSON...`);
-    
-    const template = {
-      id: templateId,
-      name: templateName,
-      description: templateDescription || `Template generado desde After Effects: ${projectInfo.projectName}`,
-      type: 'after-effects',
-      version: '1.0.0',
-      createdAt: new Date().toISOString(),
-      duration: projectInfo.duration,
-      resolution: projectInfo.resolution,
-      frameRate: projectInfo.frameRate,
-      
-      // Información original del proyecto AE
-      source: {
-        type: 'after-effects',
-        projectName: projectInfo.projectName,
-        projectType: projectInfo.projectType,
-        compositionName: projectInfo.composition.name
-      },
-      
-      // Merge fields detectados
-      mergeFields: projectInfo.mergeFields.map(field => ({
-        key: field,
-        type: this.inferMergeFieldType(field),
-        defaultValue: this.getDefaultValueForField(field),
-        description: this.generateFieldDescription(field)
-      })),
-      
-      // Timeline convertido
-      timeline: this.convertCompositionToTimeline(projectInfo.composition),
-      
-      // Assets disponibles
-      assets: projectInfo.availableAssets || []
-    };
-    
-    return template;
-  }
-
-  /**
-   * Convierte la composición de AE a nuestro formato de timeline
-   */
-  convertCompositionToTimeline(composition) {
-    // Usar el componente especializado para construir el timeline
-    return this.timelineBuilder.buildTimelineFromComposition(composition);
-  }
-
-  /**
-   * Infiere el tipo de un merge field
-   */
-  inferMergeFieldType(fieldName) {
-    const name = fieldName.toLowerCase();
-    
-    if (name.includes('color')) return 'color';
-    if (name.includes('text') || name.includes('title')) return 'text';
-    if (name.includes('image') || name.includes('asset')) return 'image';
-    if (name.includes('video')) return 'video';
-    if (name.includes('audio')) return 'audio';
-    
-    return 'text'; // Por defecto
-  }
-
-  /**
-   * Obtiene el valor por defecto para un campo
-   */
-  getDefaultValueForField(fieldName) {
-    const defaults = {
-      'BACKGROUND_COLOR': '#000000',
-      'TEXT_COLOR': '#FFFFFF',
-      'TITLE_TEXT': 'Título Principal',
-      'SUBTITLE_TEXT': 'Subtítulo',
-      'MAIN_TEXT': 'Texto Principal',
-      'PHONE_BODY_ASSET': 'assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Body.mov',
-      'PHONE_GLASS_ASSET': 'assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Glass.mov',
-      'SCREEN_CONTENT': 'assets/aftereffects/(Footage)/Animated Phone Mockup Kit/05. Others/3D Models Pre-Renders/1/Screen.mov'
-    };
-    
-    return defaults[fieldName] || '';
-  }
-
-  /**
-   * Genera una descripción para un campo
-   */
-  generateFieldDescription(fieldName) {
-    const descriptions = {
-      'BACKGROUND_COLOR': 'Color de fondo del video',
-      'TEXT_COLOR': 'Color del texto',
-      'TITLE_TEXT': 'Texto del título principal',
-      'SUBTITLE_TEXT': 'Texto del subtítulo',
-      'MAIN_TEXT': 'Contenido de texto principal',
-      'PHONE_BODY_ASSET': 'Asset del cuerpo del teléfono (archivo .mov)',
-      'PHONE_GLASS_ASSET': 'Asset del cristal del teléfono (archivo .mov)',
-      'SCREEN_CONTENT': 'Contenido de la pantalla del teléfono'
-    };
-    
-    return descriptions[fieldName] || `Campo personalizable: ${fieldName}`;
-  }
-
-  /**
-   * Genera un nombre de template desde el archivo
-   */
-  generateTemplateName(aepFilePath) {
-    const fileName = path.basename(aepFilePath, '.aep');
-    
-    // Limpiar y formatear el nombre
-    return fileName
-      .replace(/CC \([^)]+\)/g, '') // Remover versión CC
-      .replace(/[_-]/g, ' ')       // Reemplazar guiones con espacios
-      .trim()
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  }
-
-  /**
-   * Lista todos los archivos .aep disponibles
-   */
-  async listAvailableAepFiles(directory = 'assets/aftereffects') {
-    const aepFiles = [];
-    
-    try {
-      const searchPath = path.resolve(directory);
-      const files = await this.findFilesRecursively(searchPath, ['.aep', '.aet']);
-      
-      for (const file of files) {
-        const stats = await fs.stat(file);
-        aepFiles.push({
-          path: file,
-          name: path.basename(file),
-          size: stats.size,
-          modified: stats.mtime,
-          relativePath: path.relative(process.cwd(), file)
-        });
-      }
-      
-    } catch (error) {
-      logger.error(`Error listando archivos AEP: ${error.message}`);
-    }
-    
-    return aepFiles;
-  }
-
-  /**
-   * Busca archivos recursivamente
-   */
-  async findFilesRecursively(directory, extensions) {
-    const files = [];
-    
-    async function scan(dir) {
-      const items = await fs.readdir(dir);
-      
-      for (const item of items) {
-        const fullPath = path.join(dir, item);
-        const stats = await fs.stat(fullPath);
-        
-        if (stats.isDirectory()) {
-          await scan(fullPath);
-        } else if (extensions.some(ext => item.endsWith(ext))) {
-          files.push(fullPath);
         }
       }
     }
-    
-    await scan(directory);
-    return files;
+
+    // Extraer desde contenido de texto de capas
+    for (const layer of realProjectInfo.layers || []) {
+      if (layer.type === 'text' && layer.text?.sourceText) {
+        for (const pattern of this.mergeFieldPatterns) {
+          const matches = layer.text.sourceText.matchAll(pattern);
+          for (const match of matches) {
+            foundFields.add(match[1]);
+          }
+        }
+      }
+    }
+
+    // Convertir a formato de merge fields
+    for (const fieldName of foundFields) {
+      mergeFields[fieldName] = {
+        type: this.inferMergeFieldType(fieldName),
+        description: `Campo extraído del proyecto AE: ${fieldName}`,
+        required: true,
+        default: this.getDefaultValueForField(fieldName)
+      };
+    }
+
+    return mergeFields;
   }
 
   /**
-   * Valida un proyecto de After Effects antes de procesarlo
+   * Inferir tipo de merge field basado en el nombre
    */
-  async validateProject(projectInfo) {
+  inferMergeFieldType(fieldName) {
+    const textFields = ['TITLE', 'TEXT', 'NAME', 'SUBTITLE', 'DESCRIPTION'];
+    const colorFields = ['COLOR', 'BG_COLOR', 'TEXT_COLOR'];
+    const urlFields = ['URL', 'LOGO_URL', 'IMAGE_URL'];
+    const numberFields = ['SIZE', 'WIDTH', 'HEIGHT', 'DURATION'];
+
+    const upperField = fieldName.toUpperCase();
+    
+    if (colorFields.some(cf => upperField.includes(cf))) return 'color';
+    if (urlFields.some(uf => upperField.includes(uf))) return 'url';
+    if (numberFields.some(nf => upperField.includes(nf))) return 'number';
+    
+    return 'text'; // Default
+  }
+
+  /**
+   * Obtener valor por defecto para un campo
+   */
+  getDefaultValueForField(fieldName) {
+    const upperField = fieldName.toUpperCase();
+    
+    if (upperField.includes('COLOR')) return '#FFFFFF';
+    if (upperField.includes('BG_COLOR')) return '#000000';
+    if (upperField.includes('TITLE')) return 'Título';
+    if (upperField.includes('TEXT')) return 'Texto';
+    if (upperField.includes('URL')) return 'https://example.com';
+    if (upperField.includes('SIZE')) return 100;
+    
+    return '';
+  }
+
+  /**
+   * Convertir color de AE a hex
+   */
+  convertAEColorToHex(aeColor) {
+    if (!aeColor || !Array.isArray(aeColor)) return '#000000';
+    
+    const r = Math.round((aeColor[0] || 0) * 255);
+    const g = Math.round((aeColor[1] || 0) * 255);
+    const b = Math.round((aeColor[2] || 0) * 255);
+    
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+  }
+
+  /**
+   * Validar proyecto real analizado
+   */
+  async validateRealProject(realProjectInfo) {
     const errors = [];
+    const warnings = [];
     
     // Validar estructura básica
-    if (!projectInfo.projectName) {
+    if (!realProjectInfo.name) {
       errors.push('Project name is required');
     }
     
-    if (!projectInfo.composition) {
-      errors.push('Composition is required');
+    if (!realProjectInfo.compositions || realProjectInfo.compositions.length === 0) {
+      errors.push('Project must have at least one composition');
     }
     
-    if (!projectInfo.composition.layers || !Array.isArray(projectInfo.composition.layers)) {
-      errors.push('Composition must have layers array');
-    }
-    
-    // Validar capas
-    for (const layer of projectInfo.composition.layers || []) {
-      const layerValidation = this.layerProcessor.validateLayer(layer);
-      if (!layerValidation.isValid) {
-        errors.push(`Layer "${layer.name}": ${layerValidation.errors.join(', ')}`);
+    // Validar composiciones
+    for (const comp of realProjectInfo.compositions || []) {
+      if (!comp.layers || comp.layers.length === 0) {
+        warnings.push(`Composition "${comp.name}" has no layers`);
+      }
+      
+      if (comp.duration <= 0) {
+        warnings.push(`Composition "${comp.name}" has invalid duration`);
       }
     }
     
-    // Validar assets si existen
-    if (projectInfo.availableAssets) {
-      for (const assetGroup of projectInfo.availableAssets) {
-        if (assetGroup.components) {
-          for (const component of assetGroup.components) {
-            const validation = await this.assetScanner.validateAsset(component.absolutePath);
-            if (!validation.valid) {
-              errors.push(`Asset "${component.fileName}": ${validation.reason}`);
-            }
-          }
-        }
-      }
+    // Validar expresiones
+    const invalidExpressions = realProjectInfo.expressions?.filter(e => e.error) || [];
+    if (invalidExpressions.length > 0) {
+      warnings.push(`${invalidExpressions.length} expressions have errors`);
     }
     
     return {
       isValid: errors.length === 0,
       errors,
-      warnings: []
+      warnings
     };
   }
 
@@ -837,6 +741,22 @@ class AfterEffectsProcessor {
     } catch (error) {
       logger.warn(`⚠️ Error limpiando archivo temporal: ${error.message}`);
     }
+  }
+
+  /**
+   * Genera un nombre de template desde el archivo
+   */
+  generateTemplateName(aepFilePath) {
+    const fileName = path.basename(aepFilePath, '.aep');
+    
+    // Limpiar y formatear el nombre
+    return fileName
+      .replace(/CC \([^)]+\)/g, '') // Remover versión CC
+      .replace(/[_-]/g, ' ')       // Reemplazar guiones con espacios
+      .trim()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
   }
 }
 

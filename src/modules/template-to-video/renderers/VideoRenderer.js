@@ -2,7 +2,7 @@ const ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 const fs = require('fs-extra');
 const { v4: uuidv4 } = require('uuid');
-const logger = require('../utils/logger');
+const logger = require('../../../utils/logger');
 
 class VideoRenderer {
   constructor() {
@@ -149,12 +149,12 @@ class VideoRenderer {
   async buildFFmpegCommand(timeline, assets, output, outputPath) {
     const command = ffmpeg();
     
-    // Para casos simples de solo texto, usar un enfoque más directo
-    const hasOnlyText = timeline.tracks.every(track => 
-      track.clips.every(clip => clip.type === 'text')
+    // Para casos simples (solo texto y/o background), usar un enfoque más directo
+    const hasOnlySimpleContent = timeline.tracks.every(track => 
+      track.clips.every(clip => ['text', 'background'].includes(clip.type))
     );
 
-    if (hasOnlyText) {
+    if (hasOnlySimpleContent) {
       return this.buildSimpleTextCommand(timeline, output, outputPath);
     }
 
@@ -162,26 +162,46 @@ class VideoRenderer {
     return this.buildComplexCommand(timeline, assets, output, outputPath);
   }
 
-    buildSimpleTextCommand(timeline, output, outputPath) {
+  buildSimpleTextCommand(timeline, output, outputPath) {
     const command = ffmpeg();
     const resolution = output.resolution || { width: 1920, height: 1080 };
     const duration = this.calculateTotalDuration(timeline);
-    const backgroundColor = timeline.background?.color || '#000000';
     
-    // Usar un enfoque más simple con filtros FFmpeg directos
-    let filterString = `color=c=${backgroundColor}:size=${resolution.width}x${resolution.height}:duration=${duration}:rate=${output.fps || 30}`;
-    
-    // Agregar filtros de texto
+    // Obtener color de fondo desde los clips de background o usar negro por defecto
+    let backgroundColor = '#000000';
     timeline.tracks.forEach(track => {
       track.clips.forEach(clip => {
-        if (clip.type === 'text') {
-          const textOptions = this.buildTextOptions(clip);
-          filterString += `[bg];[bg]drawtext=${textOptions}`;
+        if (clip.type === 'background' && clip.color) {
+          backgroundColor = clip.color;
         }
       });
     });
     
-    // Configurar el comando con filtro complejo
+    // Si hay background en el timeline, usarlo
+    if (timeline.background?.color) {
+      backgroundColor = timeline.background.color;
+    }
+    
+    // Crear filtro base de color
+    let filterString = `color=c=${backgroundColor}:size=${resolution.width}x${resolution.height}:duration=${duration}:rate=${output.fps || 30}[bg]`;
+    
+    // Agregar filtros de texto encadenados
+    let lastOutput = 'bg';
+    let textIndex = 0;
+    
+    timeline.tracks.forEach(track => {
+      track.clips.forEach(clip => {
+        if (clip.type === 'text') {
+          const textOptions = this.buildTextOptions(clip);
+          const currentOutput = `text${textIndex}`;
+          filterString += `;[${lastOutput}]drawtext=${textOptions}[${currentOutput}]`;
+          lastOutput = currentOutput;
+          textIndex++;
+        }
+      });
+    });
+    
+    // Configurar el comando
     command.addOption('-f', 'lavfi')
            .addOption('-i', filterString)
            .addOption('-f', 'lavfi')
@@ -189,7 +209,9 @@ class VideoRenderer {
            .addOption('-c:v', 'libx264')
            .addOption('-c:a', 'aac')
            .addOption('-t', duration)
-           .addOption('-pix_fmt', 'yuv420p');
+           .addOption('-pix_fmt', 'yuv420p')
+           .addOption('-map', '0:v')
+           .addOption('-map', '1:a');
 
     // Configurar output
     command.output(outputPath);

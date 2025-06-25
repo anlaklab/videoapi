@@ -9,11 +9,18 @@ const fs = require('fs-extra');
 const logger = require('./utils/logger');
 const errorHandler = require('./middleware/errorHandler');
 const { authMiddleware } = require('./middleware/authMiddleware');
-const videoRoutes = require('./routes/videoRoutes');
-const templateRoutes = require('./routes/templateRoutes');
-const assetsRoutes = require('./routes/assetsRoutes');
-const adminRoutes = require('./routes/adminRoutes');
-const afterEffectsRoutes = require('./routes/afterEffectsRoutes');
+
+// NUEVAS RUTAS MODULARES
+const mainRoutes = require('./api/mainRoutes');
+const shotstackRoutes = require('./api/shotstackRoutes');
+
+// RUTAS LEGACY (comentadas temporalmente para evitar errores de importación)
+// const videoRoutes = require('./api/videoRoutes');
+// const templateRoutes = require('./api/templateRoutes');
+// const assetsRoutes = require('./api/assetsRoutes');
+// const adminRoutes = require('./api/adminRoutes');
+// const afterEffectsRoutes = require('./api/afterEffectsRoutes');
+
 const { setupDirectories } = require('./utils/fileManager');
 const { checkRedisConnection } = require('./config/redis');
 const { initializeFirebase } = require('./config/firebase');
@@ -68,12 +75,21 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
   customSiteTitle: 'JSON2VIDEO API Documentation'
 }));
 
-// API Routes con autenticación
-app.use('/api/video', authMiddleware, videoRoutes);
-app.use('/api/templates', authMiddleware, templateRoutes);
-app.use('/api/assets', authMiddleware, assetsRoutes);
-app.use('/api/admin', authMiddleware, adminRoutes);
-app.use('/api/aftereffects', authMiddleware, afterEffectsRoutes);
+// NUEVAS RUTAS MODULARES (SIN AUTENTICACIÓN PARA TESTING)
+app.use('/api', mainRoutes);
+app.use('/api/shotstack', shotstackRoutes);
+
+// API Routes legacy con autenticación
+// app.use('/api/video', authMiddleware, videoRoutes);
+// app.use('/api/templates', authMiddleware, templateRoutes);
+// app.use('/api/assets', authMiddleware, assetsRoutes);
+// app.use('/api/admin', authMiddleware, adminRoutes);
+// app.use('/api/aftereffects', authMiddleware, afterEffectsRoutes);
+
+// Frontend React Routes - Servir todas las rutas del SPA
+app.get(['/cloud', '/studio', '/basic', '/advanced', '/editor'], (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 // Página de inicio
 app.get('/', (req, res) => {
@@ -209,6 +225,7 @@ app.get('/', (req, res) => {
             </div>
 
             <div class="cta">
+                <a href="/cloud" class="btn">🎬 Cloud Video Studio</a>
                 <a href="/api-docs" class="btn">📚 Explorar API (Swagger UI)</a>
                 <a href="/health" class="btn secondary">❤️ Estado del Sistema</a>
             </div>
@@ -262,7 +279,7 @@ app.get('/health', async (req, res) => {
 
     // Check FFmpeg availability
     try {
-      const ffmpegPath = process.env.FFMPEG_PATH || 'ffmpeg';
+      const ffmpegPath = process.env.FFMPEG_PATH || '/opt/homebrew/bin/ffmpeg';
       const { execSync } = require('child_process');
       execSync(`${ffmpegPath} -version`, { timeout: 5000, stdio: 'ignore' });
       healthStatus.checks.ffmpeg = { status: 'healthy', path: ffmpegPath };

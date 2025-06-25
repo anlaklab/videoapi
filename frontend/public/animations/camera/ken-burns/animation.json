@@ -1,0 +1,36 @@
+{
+  "id": "ken-burns",
+  "name": "Ken Burns",
+  "category": "camera",
+  "description": "Classic cinematic effect with zoom and pan movement for dynamic storytelling",
+  "icon": "Camera",
+  "thumbnail": "thumbnail.jpg",
+  "version": "1.0.0",
+  "author": {
+    "name": "JSON2VIDEO Team",
+    "email": "team@json2video.com"
+  },
+  "compatibility": {
+    "ffmpeg": ">=4.3",
+    "web": true,
+    "minVersion": "4.3"
+  },
+  "ffmpeg": {
+    "filter": "zoompan=z='min(zoom+0.0015,1.5)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=125:s=1920x1080",
+    "parameters": {
+      "duration": 5,
+      "fps": 25,
+      "zoomStart": 1.0,
+      "zoomEnd": 1.2,
+      "xStart": 0,
+      "yStart": 0,
+      "xEnd": -50,
+      "yEnd": -30,
+      "easing": "easeOut"
+    }
+  },
+  "ui": {
+    "gradient": "linear-gradient(45deg, #667eea, #764ba2)",
+    "previewDuration": 2
+  }
+} 

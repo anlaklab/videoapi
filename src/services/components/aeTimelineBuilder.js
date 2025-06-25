@@ -19,43 +19,104 @@ class AETimelineBuilder {
    * Convierte una composición de AE a nuestro formato de timeline
    */
   buildTimelineFromComposition(composition) {
-    logger.info(`🏗️ Construyendo timeline desde composición: ${composition.name}`);
+    logger.info(`🏗️ Construyendo timeline desde composición: ${composition?.name || 'Unknown'}`);
     
-    // Validar composición
-    this.validateComposition(composition);
+    // Validar composición con valores por defecto
+    const validatedComposition = this.validateAndNormalizeComposition(composition);
     
-    // Procesar capas
-    const processedLayers = this.preprocessLayers(composition.layers);
+    // Si la composición tiene capas reales, procesarlas
+    const realLayers = validatedComposition.realLayers || [];
     
-    // Agrupar capas por tipo
+    if (realLayers.length > 0) {
+      logger.info(`🎭 Procesando ${realLayers.length} capas reales extraídas`);
+      
+      // Procesar capas reales
+      const tracks = this.createTracksFromRealLayers(realLayers);
+      
+      // Crear timeline con tracks reales
+      const timeline = {
+        tracks: tracks,
+        duration: validatedComposition.duration || 10,
+        resolution: {
+          width: validatedComposition.width || 1920,
+          height: validatedComposition.height || 1080
+        },
+        frameRate: validatedComposition.frameRate || 24,
+        background: {
+          color: this.convertBgColorToHex(validatedComposition.bgColor) || '#000000'
+        }
+      };
+      
+      logger.info(`✅ Timeline construido con ${tracks.length} tracks reales`);
+      return timeline;
+    }
+    
+    // Fallback para composiciones sin capas reales
+    logger.info('⚠️ No hay capas reales, usando proceso estándar');
+    
+    // Procesar capas estándar (el código original)
+    const processedLayers = this.preprocessLayers(validatedComposition.layers);
     const layersByType = this.layerProcessor.groupLayersByType(processedLayers);
-    
-    // Crear tracks
     const tracks = this.createTracksFromLayers(layersByType);
-    
-    // Optimizar timeline
     const optimizedTracks = this.optimizeTimeline(tracks);
-    
+
     const timeline = {
       tracks: optimizedTracks,
-      duration: composition.duration,
+      duration: this.calculateTimelineDuration(optimizedTracks),
       resolution: {
-        width: composition.resolution?.width || 1920,
-        height: composition.resolution?.height || 1080
+        width: validatedComposition.width || 1920,
+        height: validatedComposition.height || 1080
       },
-      frameRate: composition.frameRate || 30,
-      background: this.buildBackground(composition)
+      frameRate: validatedComposition.frameRate || 24,
+      background: {
+        color: this.convertBgColorToHex(validatedComposition.bgColor) || '#000000'
+      }
     };
-    
-    logger.info(`✅ Timeline construido con ${timeline.tracks.length} tracks`);
+
+    logger.info(`✅ Timeline construido con ${optimizedTracks.length} tracks`);
     return timeline;
   }
 
   /**
-   * Valida una composición antes de procesarla
+   * Valida y normaliza una composición antes de procesarla
+   */
+  validateAndNormalizeComposition(composition) {
+    if (!composition) {
+      throw new Error('Composition is required');
+    }
+
+    // Crear composición normalizada con valores por defecto
+    const normalized = {
+      name: composition.name || 'Unknown Composition',
+      duration: composition.duration || 10,
+      width: composition.width || 1920,
+      height: composition.height || 1080,
+      frameRate: composition.frameRate || 30,
+      layers: composition.layers || [],
+      bgColor: composition.bgColor || [0, 0, 0],
+      backgroundColor: composition.backgroundColor || '#000000'
+    };
+
+    // Validaciones básicas
+    if (normalized.duration <= 0) {
+      logger.warn(`Duración inválida (${normalized.duration}), usando 10 segundos por defecto`);
+      normalized.duration = 10;
+    }
+
+    if (!Array.isArray(normalized.layers)) {
+      logger.warn('Layers no es un array, creando array vacío');
+      normalized.layers = [];
+    }
+
+    logger.info(`Composición normalizada: ${normalized.name} (${normalized.layers.length} capas)`);
+    return normalized;
+  }
+
+  /**
+   * Valida una composición antes de procesarla (método legacy)
    */
   validateComposition(composition) {
-    if (!composition.name) {
+    if (!composition || !composition.name) {
       throw new Error('Composition must have a name');
     }
     
@@ -388,6 +449,363 @@ class AETimelineBuilder {
    */
   capitalizeFirst(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  /**
+   * Crear tracks desde capas reales extraídas del análisis
+   */
+  createTracksFromRealLayers(realLayers) {
+    const tracks = [];
+    let trackId = 0;
+
+    // Agrupar capas por tipo
+    const layersByType = this.groupRealLayersByType(realLayers);
+
+    // Procesar cada tipo de capa
+    Object.entries(layersByType).forEach(([type, layers]) => {
+      layers.forEach(layer => {
+        const track = this.convertRealLayerToTrack(layer, trackId++);
+        if (track) {
+          tracks.push(track);
+        }
+      });
+    });
+
+    // Ordenar tracks por startTime y prioridad
+    return this.sortTracksByPriority(tracks);
+  }
+
+  /**
+   * Agrupar capas reales por tipo
+   */
+  groupRealLayersByType(realLayers) {
+    const grouped = {
+      background: [],
+      shape: [],
+      text: [],
+      video: [],
+      audio: [],
+      image: []
+    };
+
+    realLayers.forEach(layer => {
+      const type = this.normalizeLayerType(layer.type);
+      if (grouped[type]) {
+        grouped[type].push(layer);
+      } else {
+        // Tipo desconocido, tratar como shape
+        grouped.shape.push(layer);
+      }
+    });
+
+    return grouped;
+  }
+
+  /**
+   * Convertir una capa real a un track
+   */
+  convertRealLayerToTrack(layer, trackId) {
+    const baseTrack = {
+      id: trackId,
+      name: layer.name || `Track ${trackId}`,
+      type: this.normalizeLayerType(layer.type),
+      clips: []
+    };
+
+    // Crear clip desde la capa
+    const clip = this.createClipFromRealLayer(layer);
+    if (clip) {
+      baseTrack.clips.push(clip);
+    }
+
+    return baseTrack.clips.length > 0 ? baseTrack : null;
+  }
+
+  /**
+   * Crear un clip desde una capa real
+   */
+  createClipFromRealLayer(layer) {
+    const baseClip = {
+      id: layer.id || `clip_${Date.now()}`,
+      name: layer.name || 'Clip',
+      type: this.normalizeLayerType(layer.type),
+      start: layer.startTime || 0,
+      duration: layer.duration || 5,
+      enabled: layer.enabled !== false
+    };
+
+    // Agregar propiedades de transformación
+    if (layer.transform) {
+      baseClip.transform = this.normalizeTransform(layer.transform);
+    }
+
+    // Propiedades específicas por tipo
+    switch (baseClip.type) {
+      case 'text':
+        return this.createTextClip(baseClip, layer);
+      case 'shape':
+        return this.createShapeClip(baseClip, layer);
+      case 'video':
+      case 'image':
+        return this.createMediaClip(baseClip, layer);
+      case 'audio':
+        return this.createAudioClip(baseClip, layer);
+      default:
+        return this.createGenericClip(baseClip, layer);
+    }
+  }
+
+  /**
+   * Crear clip de texto
+   */
+  createTextClip(baseClip, layer) {
+    const textClip = {
+      ...baseClip,
+      type: 'text'
+    };
+
+    if (layer.textProperties) {
+      textClip.text = layer.textProperties.text || 'Sample Text';
+      textClip.fontSize = layer.textProperties.fontSize || 48;
+      textClip.fontFamily = layer.textProperties.fontFamily || 'Arial';
+      textClip.color = this.normalizeColor(layer.textProperties.fillColor) || '#ffffff';
+      
+      // Posición desde transform o textProperties
+      if (layer.transform?.position) {
+        textClip.position = {
+          x: layer.transform.position.x || 960,
+          y: layer.transform.position.y || 540
+        };
+      }
+    }
+
+    return textClip;
+  }
+
+  /**
+   * Crear clip de forma/shape
+   */
+  createShapeClip(baseClip, layer) {
+    const shapeClip = {
+      ...baseClip,
+      type: 'background' // Tratar shapes como background por simplicidad
+    };
+
+    if (layer.shapeProperties) {
+      shapeClip.color = this.normalizeColor(layer.shapeProperties.fill) || '#000000';
+      shapeClip.shapeType = layer.shapeProperties.type || 'rectangle';
+      
+      if (layer.shapeProperties.size) {
+        shapeClip.size = {
+          width: layer.shapeProperties.size.width || 1920,
+          height: layer.shapeProperties.size.height || 1080
+        };
+      }
+    }
+
+    return shapeClip;
+  }
+
+  /**
+   * Crear clip de media (video/imagen)
+   */
+  createMediaClip(baseClip, layer) {
+    const mediaClip = {
+      ...baseClip,
+      type: layer.type === 'av' ? 'video' : layer.type
+    };
+
+    if (layer.sourceProperties) {
+      mediaClip.source = {
+        name: layer.sourceProperties.name,
+        type: layer.sourceProperties.type,
+        width: layer.sourceProperties.width,
+        height: layer.sourceProperties.height,
+        duration: layer.sourceProperties.duration,
+        hasAudio: layer.sourceProperties.hasAudio
+      };
+    }
+
+    return mediaClip;
+  }
+
+  /**
+   * Crear clip de audio
+   */
+  createAudioClip(baseClip, layer) {
+    const audioClip = {
+      ...baseClip,
+      type: 'audio'
+    };
+
+    if (layer.sourceProperties) {
+      audioClip.source = {
+        name: layer.sourceProperties.name,
+        duration: layer.sourceProperties.duration,
+        hasAudio: true
+      };
+      audioClip.volume = layer.transform?.opacity || 100;
+    }
+
+    return audioClip;
+  }
+
+  /**
+   * Crear clip genérico
+   */
+  createGenericClip(baseClip, layer) {
+    return {
+      ...baseClip,
+      type: 'shape', // Fallback
+      color: '#cccccc'
+    };
+  }
+
+  /**
+   * Normalizar tipo de capa
+   */
+  normalizeLayerType(type) {
+    const typeMap = {
+      'text': 'text',
+      'shape': 'shape',
+      'av': 'video',
+      'video': 'video',
+      'image': 'image',
+      'audio': 'audio',
+      'null': 'shape',
+      'unknown': 'shape'
+    };
+
+    return typeMap[type] || 'shape';
+  }
+
+  /**
+   * Normalizar transformaciones
+   */
+  normalizeTransform(transform) {
+    const normalized = {};
+
+    if (transform.position) {
+      if (Array.isArray(transform.position)) {
+        normalized.position = {
+          x: transform.position[0] || 0,
+          y: transform.position[1] || 0
+        };
+      } else if (typeof transform.position === 'object') {
+        normalized.position = {
+          x: transform.position.x || 0,
+          y: transform.position.y || 0
+        };
+      }
+    }
+
+    if (transform.scale) {
+      if (Array.isArray(transform.scale)) {
+        normalized.scale = {
+          x: transform.scale[0] || 100,
+          y: transform.scale[1] || 100
+        };
+      } else if (typeof transform.scale === 'object') {
+        normalized.scale = {
+          x: transform.scale.x || 100,
+          y: transform.scale.y || 100
+        };
+      }
+    }
+
+    if (transform.rotation !== undefined) {
+      normalized.rotation = transform.rotation || 0;
+    }
+
+    if (transform.opacity !== undefined) {
+      normalized.opacity = transform.opacity || 100;
+    }
+
+    return normalized;
+  }
+
+  /**
+   * Normalizar color
+   */
+  normalizeColor(color) {
+    if (!color) return null;
+
+    if (typeof color === 'string') {
+      // Ya es un string de color
+      return color.startsWith('#') ? color : `#${color}`;
+    }
+
+    if (Array.isArray(color)) {
+      // Array RGB [r, g, b]
+      const [r, g, b] = color;
+      return `#${Math.round(r * 255).toString(16).padStart(2, '0')}${Math.round(g * 255).toString(16).padStart(2, '0')}${Math.round(b * 255).toString(16).padStart(2, '0')}`;
+    }
+
+    return null;
+  }
+
+  /**
+   * Convertir bgColor de AE a hex
+   */
+  convertBgColorToHex(bgColor) {
+    if (!bgColor) return '#000000';
+    
+    if (Array.isArray(bgColor)) {
+      const [r, g, b] = bgColor;
+      return `#${Math.round(r * 255).toString(16).padStart(2, '0')}${Math.round(g * 255).toString(16).padStart(2, '0')}${Math.round(b * 255).toString(16).padStart(2, '0')}`;
+    }
+    
+    return '#000000';
+  }
+
+  /**
+   * Ordenar tracks por prioridad
+   */
+  sortTracksByPriority(tracks) {
+    const priorityOrder = {
+      'background': 0,
+      'shape': 1,
+      'image': 2,
+      'video': 3,
+      'audio': 4,
+      'text': 5
+    };
+
+    return tracks.sort((a, b) => {
+      const aPriority = priorityOrder[a.type] || 999;
+      const bPriority = priorityOrder[b.type] || 999;
+      
+      if (aPriority !== bPriority) {
+        return aPriority - bPriority;
+      }
+      
+      // Si mismo tipo, ordenar por startTime
+      const aStart = a.clips[0]?.start || 0;
+      const bStart = b.clips[0]?.start || 0;
+      return aStart - bStart;
+    });
+  }
+
+  /**
+   * Calcular duración total del timeline
+   */
+  calculateTimelineDuration(tracks) {
+    if (!tracks || tracks.length === 0) return 10; // Duración por defecto
+
+    let maxDuration = 0;
+    
+    tracks.forEach(track => {
+      if (track.clips && track.clips.length > 0) {
+        track.clips.forEach(clip => {
+          const clipEnd = (clip.start || 0) + (clip.duration || 0);
+          if (clipEnd > maxDuration) {
+            maxDuration = clipEnd;
+          }
+        });
+      }
+    });
+
+    return Math.max(maxDuration, 1); // Mínimo 1 segundo
   }
 }
 
