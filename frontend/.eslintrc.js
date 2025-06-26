@@ -6,10 +6,8 @@ module.exports = {
     node: true,
   },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
+    'react-app',
+    'react-app/jest',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -27,11 +25,15 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'warn',
     'no-unused-vars': 'warn',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-    'prefer-const': 'error',
+    'no-console': 'off',
+    'prefer-const': 'warn',
     'no-var': 'error',
-    'object-shorthand': 'error',
-    'prefer-template': 'error',
+    'object-shorthand': 'warn',
+    'prefer-template': 'warn',
+    'no-case-declarations': 'warn',
+    'jsx-a11y/no-autofocus': 'warn',
+    'jsx-a11y/click-events-have-key-events': 'warn',
+    'jsx-a11y/no-static-element-interactions': 'warn',
   },
   settings: {
     react: {

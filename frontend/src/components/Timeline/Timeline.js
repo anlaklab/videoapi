@@ -531,12 +531,20 @@ const Timeline = forwardRef(({
                   {editingTrack === track.id ? (
                     <TrackNameInput
                       defaultValue={track.name}
-                      autoFocus
                       onBlur={(e) => handleTrackNameChange(track.id, e.target.value)}
                       onKeyPress={(e) => handleTrackNameKeyPress(e, track.id)}
                     />
                   ) : (
-                    <span onClick={(e) => handleTrackNameClick(track.id, e)}>
+                    <span 
+                      onClick={(e) => handleTrackNameClick(track.id, e)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          handleTrackNameClick(track.id, e);
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                    >
                       {track.name}
                     </span>
                   )}

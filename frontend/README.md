@@ -1,6 +1,188 @@
-# JSON2VIDEO Cloud Studio - Frontend
+# JSON2VIDEO Frontend
 
-A professional, cloud-native video editor built with React, featuring real-time collaboration, Firebase integration, and advanced timeline editing capabilities.
+Professional cloud video editor built with React for the JSON2VIDEO API.
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
+```bash
+npm install
+```
+
+### 2. Environment Variables
+Create a `.env` file in the frontend directory with the following variables:
+
+```env
+# API Configuration (Required)
+REACT_APP_API_URL=http://localhost:3000
+REACT_APP_API_KEY=dev-key-12345
+
+# Firebase Configuration (Optional - for asset storage)
+REACT_APP_FIREBASE_API_KEY=your-firebase-api-key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=123456789
+REACT_APP_FIREBASE_APP_ID=1:123456789:web:abcdef123456
+
+# Shotstack Configuration (Optional - for cloud rendering)
+REACT_APP_SHOTSTACK_API_KEY=your-shotstack-api-key
+REACT_APP_SHOTSTACK_API_URL=https://api.shotstack.io/stage
+
+# Development Settings
+REACT_APP_DEBUG=true
+REACT_APP_ENVIRONMENT=development
+```
+
+### 3. Development
+```bash
+npm start
+```
+
+### 4. Production Build
+```bash
+npm run build
+```
+
+## 📁 Project Structure
+
+```
+frontend/
+├── public/
+│   ├── animations/          # Animation presets
+│   └── index.html
+├── src/
+│   ├── components/          # React components
+│   │   ├── AssetManagement/ # Asset library
+│   │   ├── Auth/           # Authentication
+│   │   ├── Canvas/         # Video preview
+│   │   ├── Inspector/      # Property editor
+│   │   ├── Sidebar/        # Asset browser
+│   │   ├── Timeline/       # Timeline editor
+│   │   ├── Toolbar/        # Playback controls
+│   │   └── ...
+│   ├── hooks/              # Custom React hooks
+│   ├── services/           # API services
+│   ├── store/             # State management
+│   └── utils/             # Utilities
+└── package.json
+```
+
+## 🎯 Features
+
+### Professional Video Editor
+- **Multi-track Timeline**: Drag & drop editing with snap-to-grid
+- **Asset Management**: Videos, images, audio, text, and fonts
+- **Real-time Preview**: Video preview with playback controls
+- **Advanced Effects**: Transitions, animations, and filters
+- **Cloud Rendering**: Shotstack integration for high-quality output
+
+### State Management
+- **Zustand Store**: Global state for timeline, uploads, and UI
+- **React Hooks**: Custom hooks for timeline, tracks, clips, and player
+- **Real-time Sync**: Auto-save and collaboration features
+
+### Asset Processing
+- **Thumbnail Generation**: Automatic thumbnails for all media types
+- **Upload Progress**: Real-time upload tracking with progress bars
+- **Cloud Storage**: Firebase integration with local fallbacks
+- **Sample Assets**: 65+ built-in assets for immediate use
+
+## 🛠️ Development
+
+### Available Scripts
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint errors
+
+### Environment Variables
+
+#### Required Variables
+- `REACT_APP_API_URL`: Backend API URL (default: http://localhost:3000)
+- `REACT_APP_API_KEY`: API key for authentication (default: dev-key-12345)
+
+#### Optional Variables
+- Firebase configuration for asset storage
+- Shotstack configuration for cloud rendering
+- Debug and development settings
+
+### Build Requirements
+The backend server expects the frontend to be built at `frontend/build/index.html`. If this file doesn't exist, users will see a helpful error page with build instructions.
+
+## 🚨 Troubleshooting
+
+### Frontend Build Missing
+If you see "Frontend Build Required" error:
+1. `cd frontend`
+2. `npm install`
+3. `npm run build`
+4. Restart the server
+
+### Environment Variables Not Working
+1. Ensure `.env` file is in the `frontend/` directory
+2. All React environment variables must start with `REACT_APP_`
+3. Restart the development server after changing `.env`
+
+### Upload Errors
+The app includes fallback systems:
+- If Firebase fails, uploads use local blob URLs
+- Sample assets are always available as fallback content
+
+## 📚 API Integration
+
+The frontend integrates with these backend services:
+- **Asset Management**: Upload and manage media files
+- **Project Management**: Save and load video projects
+- **Rendering**: Generate videos via Shotstack or local FFmpeg
+- **Authentication**: User management and permissions
+
+## 🎨 UI Components
+
+### Styled Components
+All components use styled-components with:
+- Dark theme optimized for video editing
+- Responsive design for different screen sizes
+- Professional gradients and animations
+- Accessibility features
+
+### Key Components
+- **CloudVideoEditor**: Main editor container
+- **Timeline**: Multi-track timeline with clips
+- **Sidebar**: Asset browser and upload area
+- **Canvas**: Video preview and playback
+- **Inspector**: Property editor for selected items
+
+## 🔧 Configuration
+
+### Asset Categories
+Configured in `src/config/sidebarConfig.js`:
+- Videos, Images, Audio, Text, Fonts
+- Custom icons and colors for each type
+- File type validation and accepted formats
+
+### Sample Assets
+Located in `src/data/sampleAssets.js`:
+- 15 sample videos
+- 20 sample images  
+- 10 audio tracks
+- 8 text templates
+- 12 font families
+
+## 📈 Performance
+
+### Optimizations
+- Lazy loading for large asset libraries
+- Thumbnail caching for faster preview
+- Debounced auto-save to prevent excessive saves
+- Virtual scrolling for large timelines
+
+### Bundle Size
+The production build is optimized with:
+- Code splitting for faster initial load
+- Tree shaking to remove unused code
+- Compression for smaller file sizes
 
 ## 🚀 Features
 

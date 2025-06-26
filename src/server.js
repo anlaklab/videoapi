@@ -88,7 +88,78 @@ app.use('/api/shotstack', shotstackRoutes);
 
 // Frontend React Routes - Servir todas las rutas del SPA
 app.get(['/cloud', '/studio', '/basic', '/advanced', '/editor'], (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  const frontendBuildPath = path.join(__dirname, '../frontend/build/index.html');
+  
+  // Check if frontend build exists
+  if (!fs.existsSync(frontendBuildPath)) {
+    return res.status(503).send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Frontend Build Required - JSON2VIDEO</title>
+          <style>
+              body {
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                  max-width: 800px;
+                  margin: 0 auto;
+                  padding: 40px 20px;
+                  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+                  color: white;
+                  min-height: 100vh;
+              }
+              .container {
+                  background: rgba(255, 255, 255, 0.1);
+                  padding: 40px;
+                  border-radius: 20px;
+                  backdrop-filter: blur(10px);
+                  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+              }
+              h1 { text-align: center; font-size: 2.5em; margin-bottom: 20px; }
+              .error-icon { text-align: center; font-size: 4em; margin-bottom: 20px; }
+              .steps { background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; }
+              .step { margin: 10px 0; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; }
+              code { background: rgba(0, 0, 0, 0.3); padding: 2px 8px; border-radius: 4px; font-family: monospace; }
+              .btn { display: inline-block; padding: 15px 30px; margin: 10px; background: rgba(255, 255, 255, 0.2); color: white; text-decoration: none; border-radius: 10px; font-weight: bold; }
+          </style>
+      </head>
+      <body>
+          <div class="container">
+              <div class="error-icon">🏗️</div>
+              <h1>Frontend Build Required</h1>
+              <p>The React frontend needs to be built before accessing this route.</p>
+              
+              <div class="steps">
+                  <h3>To fix this issue:</h3>
+                  <div class="step">
+                      <strong>1.</strong> Navigate to the frontend directory:<br>
+                      <code>cd frontend</code>
+                  </div>
+                  <div class="step">
+                      <strong>2.</strong> Install dependencies (if not already done):<br>
+                      <code>npm install</code>
+                  </div>
+                  <div class="step">
+                      <strong>3.</strong> Build the React application:<br>
+                      <code>npm run build</code>
+                  </div>
+                  <div class="step">
+                      <strong>4.</strong> Restart the server and try again
+                  </div>
+              </div>
+              
+              <div style="text-align: center; margin-top: 30px;">
+                  <a href="/" class="btn">← Back to Home</a>
+                  <a href="/api-docs" class="btn">📚 API Documentation</a>
+              </div>
+          </div>
+      </body>
+      </html>
+    `);
+  }
+  
+  res.sendFile(frontendBuildPath);
 });
 
 // Página de inicio
@@ -279,13 +350,53 @@ app.get('/health', async (req, res) => {
 
     // Check FFmpeg availability
     try {
-      const ffmpegPath = process.env.FFMPEG_PATH || '/opt/homebrew/bin/ffmpeg';
       const { execSync } = require('child_process');
-      execSync(`${ffmpegPath} -version`, { timeout: 5000, stdio: 'ignore' });
-      healthStatus.checks.ffmpeg = { status: 'healthy', path: ffmpegPath };
+      let ffmpegPath = process.env.FFMPEG_PATH;
+      
+      // If no explicit path set, try to find ffmpeg in PATH
+      if (!ffmpegPath) {
+        try {
+          // Try to find ffmpeg in system PATH
+          execSync('ffmpeg -version', { timeout: 5000, stdio: 'ignore' });
+          ffmpegPath = 'ffmpeg'; // Use system PATH
+        } catch (pathError) {
+          // Fall back to common installation paths
+          const commonPaths = [
+            '/usr/local/bin/ffmpeg',
+            '/opt/homebrew/bin/ffmpeg',
+            '/usr/bin/ffmpeg',
+            'C:\\ffmpeg\\bin\\ffmpeg.exe'
+          ];
+          
+          for (const path of commonPaths) {
+            try {
+              execSync(`"${path}" -version`, { timeout: 5000, stdio: 'ignore' });
+              ffmpegPath = path;
+              break;
+            } catch (e) {
+              // Continue to next path
+            }
+          }
+        }
+      }
+      
+      if (ffmpegPath) {
+        // Test the found path
+        execSync(`"${ffmpegPath}" -version`, { timeout: 5000, stdio: 'ignore' });
+        healthStatus.checks.ffmpeg = { status: 'healthy', path: ffmpegPath };
+      } else {
+        throw new Error('FFmpeg not found in system PATH or common locations');
+      }
     } catch (error) {
-      healthStatus.checks.ffmpeg = { status: 'unhealthy', error: 'FFmpeg not available' };
-      healthStatus.status = 'degraded';
+      healthStatus.checks.ffmpeg = { 
+        status: 'unhealthy', 
+        error: 'FFmpeg not available. Please install FFmpeg or set FFMPEG_PATH environment variable.',
+        suggestion: 'Visit https://ffmpeg.org/download.html for installation instructions'
+      };
+      // Don't mark as degraded in development
+      if (process.env.NODE_ENV === 'production') {
+        healthStatus.status = 'degraded';
+      }
     }
 
     // Check disk space

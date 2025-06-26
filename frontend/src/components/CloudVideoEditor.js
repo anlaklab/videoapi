@@ -224,7 +224,7 @@ const CloudVideoEditor = () => {
 
   // Local state (keeping existing state that doesn't need to be global)
   const [project, setProject] = useState({
-    id: 'project-' + Date.now(),
+    id: `project-${Date.now()}`,
     name: 'Untitled Project',
     settings: {
       resolution: { width: 1920, height: 1080 },
@@ -310,8 +310,8 @@ const CloudVideoEditor = () => {
               const estimatedTime = remaining / speed;
 
               updateUploadProgress(uploadId, clampedProgress, {
-                speed: speed,
-                estimatedTime: estimatedTime
+                speed,
+                estimatedTime
               });
 
               if (clampedProgress >= 100) break;
@@ -716,11 +716,12 @@ const CloudVideoEditor = () => {
         clips.pasteClips(options.position);
         break;
         
-      case 'split':
+      case 'split': {
         clipIds.forEach(clipId => {
           clips.splitClip(clipId, options.position);
         });
         break;
+      }
         
       case 'merge':
         // Implement merge logic

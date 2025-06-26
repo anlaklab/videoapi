@@ -222,8 +222,153 @@ class VideoRenderer {
   buildComplexCommand(timeline, assets, output, outputPath) {
     // Implementación para casos más complejos (videos, imágenes, etc.)
     const command = ffmpeg();
-    // TODO: Implementar filtros complejos para casos avanzados
-    throw new Error('Casos complejos no implementados aún');
+    const resolution = output.resolution || { width: 1920, height: 1080 };
+    const fps = output.fps || 30;
+    const duration = this.calculateTotalDuration(timeline);
+    
+    logger.info('Building complex FFmpeg command for timeline with media assets');
+    
+    // Collect all input files
+    const inputs = [];
+    let inputIndex = 0;
+    
+    // Add background color or video
+    if (timeline.background?.type === 'video' && timeline.background.src) {
+      command.input(timeline.background.src);
+      inputs.push({ type: 'background', index: inputIndex++, src: timeline.background.src });
+    }
+    
+    // Process all clips and add as inputs
+    timeline.tracks.forEach(track => {
+      track.clips.forEach(clip => {
+        if (['video', 'image', 'audio'].includes(clip.type) && clip.src) {
+          command.input(clip.src);
+          inputs.push({ 
+            type: clip.type, 
+            index: inputIndex++, 
+            src: clip.src, 
+            clip: clip 
+          });
+        }
+      });
+    });
+    
+    // Add soundtrack if exists
+    let soundtrackIndex = null;
+    if (timeline.soundtrack?.src) {
+      command.input(timeline.soundtrack.src);
+      soundtrackIndex = inputIndex++;
+    }
+    
+    // Build filter complex
+    const filterComplex = [];
+    const videoLayers = [];
+    
+    // Create base layer (background color or first video)
+    if (inputs.find(i => i.type === 'background')) {
+      const bgInput = inputs.find(i => i.type === 'background');
+      filterComplex.push(`[${bgInput.index}:v]scale=${resolution.width}:${resolution.height}[bg]`);
+    } else {
+      filterComplex.push(`color=c=black:size=${resolution.width}x${resolution.height}:duration=${duration}:rate=${fps}[bg]`);
+    }
+    
+    let currentLayer = 'bg';
+    let layerIndex = 0;
+    
+    // Process video and image clips
+    const mediaClips = inputs.filter(i => ['video', 'image'].includes(i.type));
+    mediaClips.forEach((input, idx) => {
+      const clip = input.clip;
+      const nextLayer = `layer${layerIndex++}`;
+      
+      // Scale and position the input
+      let inputFilter = `[${input.index}:v]`;
+      
+      // Apply scaling if needed
+      if (clip.scale && clip.scale !== 1) {
+        inputFilter += `scale=iw*${clip.scale}:ih*${clip.scale}[scaled${idx}];[scaled${idx}]`;
+      }
+      
+      // Build overlay filter with timing
+      const start = clip.start || 0;
+      const clipDuration = clip.duration || clip.length || 5;
+      const end = start + clipDuration;
+      
+      const x = clip.position?.x || 0;
+      const y = clip.position?.y || 0;
+      
+      filterComplex.push(
+        `[${currentLayer}]${inputFilter}overlay=${x}:${y}:enable='between(t,${start},${end})'[${nextLayer}]`
+      );
+      
+      currentLayer = nextLayer;
+    });
+    
+    // Add text overlays
+    timeline.tracks.forEach(track => {
+      track.clips.forEach(clip => {
+        if (clip.type === 'text') {
+          const nextLayer = `layer${layerIndex++}`;
+          const textOptions = this.buildTextOptions(clip);
+          const start = clip.start || 0;
+          const clipDuration = clip.duration || clip.length || 3;
+          const end = start + clipDuration;
+          
+          filterComplex.push(
+            `[${currentLayer}]drawtext=${textOptions}:enable='between(t,${start},${end})'[${nextLayer}]`
+          );
+          
+          currentLayer = nextLayer;
+        }
+      });
+    });
+    
+    // Handle audio mixing
+    const audioInputs = [];
+    
+    // Add soundtrack
+    if (soundtrackIndex !== null) {
+      audioInputs.push(`[${soundtrackIndex}:a]`);
+    }
+    
+    // Add audio from video clips
+    inputs.filter(i => ['video', 'audio'].includes(i.type)).forEach(input => {
+      const clip = input.clip;
+      const start = clip.start || 0;
+      const clipDuration = clip.duration || clip.length || 5;
+      
+      // Trim audio to clip duration
+      audioInputs.push(`[${input.index}:a]atrim=start=${start}:duration=${clipDuration}[a${input.index}]`);
+    });
+    
+    // Mix audio or create silence
+    if (audioInputs.length > 0) {
+      const audioMixInputs = audioInputs.map((_, idx) => `[a${idx}]`).join('');
+      filterComplex.push(`${audioMixInputs}amix=inputs=${audioInputs.length}:duration=longest[audio]`);
+    } else {
+      filterComplex.push(`anullsrc=channel_layout=stereo:sample_rate=48000:duration=${duration}[audio]`);
+    }
+    
+    // Apply filter complex
+    if (filterComplex.length > 0) {
+      command.complexFilter(filterComplex.join(';'));
+      command.map(`[${currentLayer}]`);
+      command.map('[audio]');
+    }
+    
+    // Configure output
+    command
+      .videoCodec('libx264')
+      .audioCodec('aac')
+      .outputOptions([
+        '-pix_fmt yuv420p',
+        '-preset medium',
+        '-crf 23'
+      ])
+      .duration(duration)
+      .output(outputPath);
+    
+    return command;
   }
 
   buildVideoFilters(timeline, inputs, filterComplex, videoLayers) {

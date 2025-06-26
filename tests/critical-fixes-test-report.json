@@ -1,0 +1,63 @@
+{
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "total": 7,
+    "successRate": "85.7",
+    "duration": "0.14",
+    "timestamp": "2025-06-25T23:31:39.423Z"
+  },
+  "details": [
+    {
+      "test": "FFmpeg Compatibility",
+      "passed": true,
+      "details": "FFmpeg found at: /opt/homebrew/bin/ffmpeg",
+      "timestamp": "2025-06-25T23:31:39.365Z"
+    },
+    {
+      "test": "Frontend Build Handling",
+      "passed": false,
+      "details": "Unexpected response from frontend route",
+      "timestamp": "2025-06-25T23:31:39.370Z"
+    },
+    {
+      "test": "Environment Documentation",
+      "passed": true,
+      "details": "Complete environment variables documentation found",
+      "timestamp": "2025-06-25T23:31:39.370Z"
+    },
+    {
+      "test": "Complex Rendering Pipeline",
+      "passed": true,
+      "details": "Complex rendering handles errors gracefully without throwing unimplemented errors",
+      "timestamp": "2025-06-25T23:31:39.376Z"
+    },
+    {
+      "test": "ESLint Production Build",
+      "passed": true,
+      "details": "Frontend build completed successfully with all required files",
+      "timestamp": "2025-06-25T23:31:39.376Z"
+    },
+    {
+      "test": "API Endpoints",
+      "passed": true,
+      "details": "All critical API endpoints are responding",
+      "timestamp": "2025-06-25T23:31:39.421Z"
+    },
+    {
+      "test": "Error Handling",
+      "passed": true,
+      "details": "Proper 404 handling for non-existent routes",
+      "timestamp": "2025-06-25T23:31:39.422Z"
+    }
+  ],
+  "fixes": [
+    "Cross-platform FFmpeg path detection",
+    "Frontend build missing error handling",
+    "Environment variables documentation",
+    "Complex rendering pipeline error handling",
+    "ESLint configuration for production builds",
+    "User-friendly error messages",
+    "Graceful fallback systems"
+  ]
+}
