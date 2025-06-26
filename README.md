@@ -4,9 +4,19 @@
 
 A clean, focused API for rendering videos from JSON timeline definitions. Perfect for developers who need reliable JSON-to-video conversion without overwhelming complexity.
 
-## 🚀 **Quick Start**
+## ⚡ **Two Ways to Use JSON2VIDEO**
 
-### **1. Start the API**
+### **📋 Option 1: Simple API Only** (Recommended for developers)
+Perfect for integrating video generation into your applications via REST API.
+
+### **🎬 Option 2: Complete Video Editor** (GUI + API)
+Full-featured video editor with React frontend for interactive editing.
+
+---
+
+## 🚀 **Quick Start (API)**
+
+### **1. Start the Simple API**
 ```bash
 git clone https://github.com/anlaklab/videoapi.git
 cd videoapi
@@ -207,20 +217,20 @@ Development: `x-api-key: dev-key-12345`
 
 ### **Available Scripts**
 ```bash
-# Start simplified server
-npm run simple
+# Simplified API (recommended)
+npm run simple           # Start simple JSON2VIDEO API
+npm run dev:simple       # Development mode with auto-reload
+npm run test:simple      # Run simplified API tests
 
-# Development mode with auto-reload
-npm run dev:simple
+# Frontend Video Editor
+cd frontend && npm start # Start React video editor (port 3001)
+cd frontend && npm run build # Build frontend for production
 
-# Run API tests
-npm run test:simple
+# Full system (complex API - legacy)
+npm start               # Start full server with 30+ endpoints
 
-# Start full server (complex API)
-npm start
-
-# Lint code
-npm run lint
+# Development tools
+npm run lint            # Lint code
 ```
 
 ### **Project Structure**
@@ -289,6 +299,56 @@ curl -X POST http://localhost:3000/api/render \
   -H "x-api-key: dev-key-12345" \
   -d @timeline.json
 ```
+
+## 🎬 **Frontend Video Editor**
+
+We also include a **professional React-based video editor** that provides a complete GUI for the JSON2VIDEO API.
+
+### **✨ Video Editor Features**
+- 🎥 **Multi-track timeline** with drag & drop editing
+- 🎨 **Asset management** for videos, images, audio, fonts
+- ⚡ **Real-time preview** with playback controls
+- 🔄 **Transitions & animations** with visual effects
+- 💾 **Auto-save & collaboration** via Firebase
+- 📱 **Responsive design** with professional dark theme
+
+### **🚀 Quick Start (Frontend)**
+```bash
+# Start the backend API first
+npm run simple
+
+# In a new terminal, start the frontend
+cd frontend
+npm install
+npm start
+
+# Open browser to http://localhost:3001
+```
+
+### **🎯 Editor Workflow**
+1. **Upload assets** - Drag & drop videos, images, audio
+2. **Create timeline** - Add tracks and arrange clips
+3. **Add effects** - Apply transitions and animations  
+4. **Preview** - Watch real-time video preview
+5. **Export** - Render final video via API
+
+### **🔧 Frontend Configuration**
+```bash
+# Frontend environment variables
+REACT_APP_API_URL=http://localhost:3000
+REACT_APP_API_KEY=dev-key-12345
+
+# Optional: Firebase for cloud storage
+REACT_APP_FIREBASE_PROJECT_ID=your-project
+```
+
+### **📖 Frontend Documentation**
+- **📱 Frontend Guide**: [frontend/README.md](frontend/README.md)
+- **🏗️ Component Architecture**: Professional React components
+- **🔄 State Management**: Zustand + custom hooks
+- **☁️ Cloud Integration**: Firebase + Firestore support
+
+---
 
 ## 📚 **Documentation**
 
