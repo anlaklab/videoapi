@@ -5,10 +5,13 @@
   "main": "src/server.js",
   "scripts": {
     "start": "FFMPEG_PATH=/opt/homebrew/bin/ffmpeg node src/server.js",
+    "simple": "FFMPEG_PATH=/opt/homebrew/bin/ffmpeg node src/server.simple.js",
     "dev": "nodemon src/server.js",
+    "dev:simple": "nodemon src/server.simple.js",
     "worker": "node src/worker.js",
     "dev:worker": "nodemon src/worker.js",
     "test": "jest",
+    "test:simple": "node test-simple-api.js",
     "lint": "eslint src/",
     "format": "prettier --write src/",
     "docker:build": "docker build -t json2video-api .",

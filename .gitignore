@@ -3,6 +3,17 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
+frontend/node_modules/
+frontend/package-lock.json
+
+# Build outputs (React builds, compiled assets)
+build/
+dist/
+frontend/build/
+frontend/dist/
+*.min.js
+*.min.css
 
 # Environment variables
 .env
@@ -10,17 +21,52 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.example.local
 
 # Logs
 logs/
 *.log
 server.log
 worker.log
+npm-debug.log
+yarn-error.log
 
-# Output files
-output/*.mp4
+# Output and temporary files
+output/
 temp/
+uploads/
+generated/
 *.tmp
+*.temp
+
+# Local asset files (exclude all actual media files)
+assets/videos/*.mp4
+assets/videos/*.mov
+assets/videos/*.avi
+assets/videos/*.mkv
+assets/audio/*.mp3
+assets/audio/*.wav
+assets/audio/*.m4a
+assets/images/*.jpg
+assets/images/*.jpeg
+assets/images/*.png
+assets/images/*.gif
+assets/images/*.webp
+assets/fonts/*.ttf
+assets/fonts/*.otf
+assets/fonts/*.woff
+assets/fonts/*.woff2
+
+# After Effects files (large binary files)
+assets/aftereffects/**/*.aep
+assets/aftereffects/**/*.aet
+assets/aftereffects/**/*.mov
+assets/aftereffects/**/*.avi
+
+# Keep only sample/demo files (small test files)
+!assets/images/sample-*.jpg
+!assets/videos/demo-*.mp4
+!assets/audio/sample-*.mp3
 
 # OS generated files
 .DS_Store
@@ -30,26 +76,98 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# IDE files
+# IDE and editor files
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-project
+*.sublime-workspace
+.atom/
 
-# Firebase
+# Firebase credentials
 firebase-adminsdk-*.json
+serviceAccountKey.json
 
-# Test results
+# Test results and coverage
 test-results/
+coverage/
+.nyc_output/
+*.lcov
 
-# Large asset files (keep structure but not content)
-assets/aftereffects/**/*.mov
-assets/aftereffects/**/*.aep
-assets/videos/*.mp4
-assets/audio/*.mp3
+# Redis dumps
+*.rdb
+dump.rdb
 
-# Keep smaller test files
-!assets/images/test-image.jpg
-!assets/videos/test-video.mp4
-!assets/audio/test-music.mp3
+# Process IDs
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Runtime data
+pids/
+*.seed
+*.seed.*
+
+# Local development databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Mac specific
+.AppleDouble
+.LSOverride
+
+# Windows specific
+*.exe
+*.msi
+
+# Linux specific
+*~
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Serverless
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Local History for Visual Studio Code
+.history/
